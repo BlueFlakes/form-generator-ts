@@ -3,7 +3,7 @@ export class Observer {
         this.procedure = procedure;
     }
 
-    notify() {
-        this.procedure();
+    notify(context) {
+        this.procedure(context);
     }
 }

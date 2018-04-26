@@ -17,12 +17,14 @@ export class ObserversEden {
         this.observersContainer.remove(observer);
     }
 
-    notifyAll() {
-        let iterator = this.observersContainer.iterator();
+    notifyAll(context) {
+        if (!(typeof context === 'object'))
+            throw 'Invalid context delivered, expected typeof object.';
 
+        let iterator = this.observersContainer.iterator();
         while (iterator.hasNext()) {
             let observer = iterator.next();
-            observer.notify();
+            observer.notify(context);
         }
     }
 }
