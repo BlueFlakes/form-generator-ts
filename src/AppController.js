@@ -1,3 +1,3 @@
-const ApplicationController = function () {
+const ApplicationController = (function () {
     console.log('hello world');
-}();
+})();
