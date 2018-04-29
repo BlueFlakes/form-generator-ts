@@ -12,6 +12,7 @@ import {ContainerView} from "./survey/universalContainer/ContainerView.js";
 import {Container} from "./survey/universalContainer/Container.js";
 import {Button} from "./simpleElements/Button.js";
 import {TitleInput} from "./simpleElements/TitleInput.js";
+import {SectionEnum} from "./survey/section/Section.js";
 
 
 const ApplicationController = (function () {
@@ -55,15 +56,20 @@ const ApplicationController = (function () {
         titleContainer.addNode(titleInput.getId(), titleInput);
 
         let section = createSection(idGenerator.nextId(), 'survey');
-        section.addToSectionBody(titleContainer);
-        section.addToSectionBody(question);
-        section.addToSectionBody(specialOptions);
+        section.addToSectionBody(SectionEnum.TitleSection, titleContainer);
+        section.addToSectionBody(SectionEnum.QuestionSection, question);
+        section.addToSectionBody(random(), specialOptions);
 
         section.inject();
 
         question.addSimpleElement();
 
         form.put(section.getId(), section);
+    }
+    
+    function random() {
+        // random mean that we are not interested in this ID but still we don't want any collision
+        return idGenerator.nextId();
     }
 
     function createHolderStrategy(strategyIdentity) {
