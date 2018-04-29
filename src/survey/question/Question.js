@@ -13,6 +13,10 @@ export class Question {
         return this._questionType;
     }
 
+    getSimpleElements() {
+        return this._simpleElements;
+    }
+
     getId() {
         return this._questionId;
     }
