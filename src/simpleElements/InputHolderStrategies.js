@@ -2,7 +2,8 @@ export const HolderStrategyIdentity = Object.freeze({
     radioBoxStrategy: 'radioBox',
     checkBoxStrategy: 'checkBox',
     none: 'None',
-    textAreaStrategy: 'textArea'
+    textAreaStrategy: 'textArea',
+    datetimeBoxStrategy: 'datetime'
 });
 
 export class InputHolderStrategies {
@@ -17,6 +18,14 @@ export class InputHolderStrategies {
                         let textArea = document.createElement('textarea');
                         textArea.id = node.id;
                         return textArea;
+                    }
+                };
+
+            case HolderStrategyIdentity.datetimeBoxStrategy:
+                return () => {
+                    return (node) => {
+                        node.type = 'datetime-local';
+                        return node;
                     }
                 };
 

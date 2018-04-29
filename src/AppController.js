@@ -32,6 +32,11 @@ const ApplicationController = (function () {
             addNewQuestionIntoSurvey(question, []);
         });
 
+        document.getElementById('add__datetime').addEventListener('click', function () {
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.datetimeBoxStrategy);
+            addNewQuestionIntoSurvey(question, []);
+        });
+
         document.getElementById('add__textArea').addEventListener('click', function () {
             let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.textAreaStrategy);
             addNewQuestionIntoSurvey(question, []);
