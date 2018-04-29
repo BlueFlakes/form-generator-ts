@@ -27,33 +27,51 @@ const ApplicationController = (function () {
             form.render();
         });
 
+        document.getElementById('add__textInput').addEventListener('click', function () {
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.none);
+            addNewQuestionIntoSurvey(question, []);
+        });
+
+        document.getElementById('add__textArea').addEventListener('click', function () {
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.textAreaStrategy);
+            addNewQuestionIntoSurvey(question, []);
+        });
+
+        document.getElementById('delete__form').addEventListener('click', function () {
+            form.clearWindow();
+            form.clearSections();
+        });
+
         document.getElementById('add__radioQuestion').addEventListener('click', function () {
-            addNewQuestionIntoSurvey('radio', HolderStrategyIdentity.radioBoxStrategy);
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.radioBoxStrategy);
+            let btn = createButton('radio', question);
+
+            addNewQuestionIntoSurvey(question, [btn]);
         });
 
         document.getElementById('add__checkbox').addEventListener('click', function () {
-            addNewQuestionIntoSurvey('checkbox', HolderStrategyIdentity.checkBoxStrategy);
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.checkBoxStrategy);
+            let btn = createButton('checkbox', question);
+
+            addNewQuestionIntoSurvey(question, [btn]);
         })
     }
+
+    function createButton(buttonName, question) {
+        return new Button(idGenerator.nextId(), buttonName, () => question.addSimpleElement());
+    }
     
-    function addNewQuestionIntoSurvey(buttonName, holderStrategyIdentity) {
-        let id = idGenerator.nextId();
+    function addNewQuestionIntoSurvey(question, options) {
 
-        let question = (function (newId, type) {
-            let strategy = createHolderStrategy(type)(newId);
-            return createQuestion(newId, strategy, type);
+        let specialOptions = createSimpleContainer(idGenerator.nextId());
 
-        })(id, holderStrategyIdentity);
-
-        let specialOptionsContainerId = idGenerator.nextId();
-        let specialOptions = createSimpleContainer(specialOptionsContainerId);
-        let btn = new Button(idGenerator.nextId(), buttonName, () => question.addSimpleElement());
-        specialOptions.addNode(btn.getId(), btn);
-
+        options.forEach((opt) => {
+            specialOptions.putNode(opt.getId(), opt);
+        });
 
         let titleContainer = createSimpleContainer(idGenerator.nextId());
         let titleInput = new TitleInput(idGenerator.nextId());
-        titleContainer.addNode(titleInput.getId(), titleInput);
+        titleContainer.putNode(titleInput.getId(), titleInput);
 
         let section = createSection(idGenerator.nextId(), 'survey');
         section.addToSectionBody(SectionEnum.TitleSection, titleContainer);
@@ -72,11 +90,10 @@ const ApplicationController = (function () {
         return idGenerator.nextId();
     }
 
-    function createHolderStrategy(strategyIdentity) {
-        return InputHolderStrategies.createHolderStrategyByIdentity(strategyIdentity);
-    }
+    function createQuestion(id, type) {
+        let holderStrategy = InputHolderStrategies.
+                createHolderStrategyByIdentity(type)(id);
 
-    function createQuestion(id, holderStrategy, type) {
         let questionView = new QuestionView(id, holderStrategy);
         return new Question(id, questionView, type);
     }
