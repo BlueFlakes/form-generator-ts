@@ -7,6 +7,7 @@ export class SimpleElement {
     injectEventListener() {
         document.getElementById(this._id).addEventListener('keyup', (e) => {
             this._currentValue = e.target.value;
+            console.log(this._currentValue);
         });
     }
 

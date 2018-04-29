@@ -1,7 +1,6 @@
 export class QuestionView {
-    constructor(id, inputsHolderStrategy) {
-        this._questionsContainerIdentity = `question__container-${id}`;
-        this._inputsHolderStrategy = inputsHolderStrategy;
+    constructor(questionsContainerIdentity) {
+        this._questionsContainerIdentity = questionsContainerIdentity;
     }
 
     removeChildNode(simpleElementId) {
@@ -12,14 +11,9 @@ export class QuestionView {
     }
 
     injectSimpleElement(simpleElement) {
-        let child = this._applyHolderStrategyOnSimpleElementNode(simpleElement);
+        let child = simpleElement.generateNode();
         document.getElementById(this._questionsContainerIdentity).appendChild(child);
         simpleElement.injectEventListener();
-    }
-
-    _applyHolderStrategyOnSimpleElementNode(simpleElement) {
-        let node = simpleElement.generateNode();
-        return this._inputsHolderStrategy(node)
     }
 
     injectContainerWithChildNodes(simpleElements, outerContainerIdentity) {
@@ -27,7 +21,7 @@ export class QuestionView {
         element.id = this._questionsContainerIdentity;
 
         simpleElements.forEach((currentSimpleElement) => {
-            let elementView = this._applyHolderStrategyOnSimpleElementNode(currentSimpleElement);
+            let elementView = currentSimpleElement.generateNode();
             element.appendChild(elementView);
         });
 
