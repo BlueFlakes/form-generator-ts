@@ -1,4 +1,4 @@
-export class TextInput {
+export class SimpleElement {
     constructor(id) {
         this._id = id;
         this._currentValue = null;
@@ -7,11 +7,16 @@ export class TextInput {
     injectEventListener() {
         document.getElementById(this._id).addEventListener('keyup', (e) => {
             this._currentValue = e.target.value;
+            console.log(this._currentValue);
         });
     }
 
     getCurrentValue() {
         return this._currentValue;
+    }
+
+    setCurrentValue(recentValue) {
+        this._currentValue = recentValue;
     }
 
     getId() {

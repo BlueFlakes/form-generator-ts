@@ -2,9 +2,9 @@ import {Question} from "./survey/question/Question.js";
 import {QuestionView} from "./survey/question/QuestionView.js";
 import {idGenerator} from "./shared/IdGenerator.js";
 import {
-    HolderStrategyIdentity,
-    InputHolderStrategies
-} from "./simpleElements/InputHolderStrategies.js";
+    FieldGeneratorStrategyIdentity,
+    FieldGeneratorStrategies
+} from "./simpleElements/FieldGeneratorStrategies.js";
 import {Form} from "./survey/Form.js";
 import {SectionView} from "./survey/section/SectionView.js";
 import {Section} from "./survey/section/Section.js";
@@ -19,26 +19,23 @@ const ApplicationController = (function () {
     const form = new Form();
 
     {
-        document.getElementById('clear__form').addEventListener('click', function () {
-            form.clearWindow();
-        });
-
         document.getElementById('render__form').addEventListener('click', function () {
+            form.clearWindow();
             form.render();
         });
 
         document.getElementById('add__textInput').addEventListener('click', function () {
-            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.none);
+            let question = createQuestion(idGenerator.nextId(), FieldGeneratorStrategyIdentity.none);
             addNewQuestionIntoSurvey(question, []);
         });
 
         document.getElementById('add__datetime').addEventListener('click', function () {
-            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.datetimeBoxStrategy);
+            let question = createQuestion(idGenerator.nextId(), FieldGeneratorStrategyIdentity.datetimeBoxStrategy);
             addNewQuestionIntoSurvey(question, []);
         });
 
         document.getElementById('add__textArea').addEventListener('click', function () {
-            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.textAreaStrategy);
+            let question = createQuestion(idGenerator.nextId(), FieldGeneratorStrategyIdentity.textAreaStrategy);
             addNewQuestionIntoSurvey(question, []);
         });
 
@@ -48,14 +45,14 @@ const ApplicationController = (function () {
         });
 
         document.getElementById('add__radioQuestion').addEventListener('click', function () {
-            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.radioBoxStrategy);
+            let question = createQuestion(idGenerator.nextId(), FieldGeneratorStrategyIdentity.radioBoxStrategy);
             let btn = createButton('radio', question);
 
             addNewQuestionIntoSurvey(question, [btn]);
         });
 
         document.getElementById('add__checkbox').addEventListener('click', function () {
-            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.checkBoxStrategy);
+            let question = createQuestion(idGenerator.nextId(), FieldGeneratorStrategyIdentity.checkBoxStrategy);
             let btn = createButton('checkbox', question);
 
             addNewQuestionIntoSurvey(question, [btn]);
@@ -68,13 +65,13 @@ const ApplicationController = (function () {
     
     function addNewQuestionIntoSurvey(question, options) {
 
-        let specialOptions = createSimpleContainer(idGenerator.nextId());
+        let specialOptions = createSimpleContainer(idGenerator.nextId(), 'spec');
 
         options.forEach((opt) => {
             specialOptions.putNode(opt.getId(), opt);
         });
 
-        let titleContainer = createSimpleContainer(idGenerator.nextId());
+        let titleContainer = createSimpleContainer(idGenerator.nextId(), 'title');
         let titleInput = new TitleInput(idGenerator.nextId());
         titleContainer.putNode(titleInput.getId(), titleInput);
 
@@ -96,11 +93,13 @@ const ApplicationController = (function () {
     }
 
     function createQuestion(id, type) {
-        let holderStrategy = InputHolderStrategies.
-                createHolderStrategyByIdentity(type)(id);
+        let fieldGenerator = FieldGeneratorStrategies.createFieldGeneratorByIdentity(type);
 
-        let questionView = new QuestionView(id, holderStrategy);
-        return new Question(id, questionView, type);
+        let questionViewCreator = function (viewId) {
+            return new QuestionView(viewId);
+        };
+
+        return new Question(id, questionViewCreator, type, fieldGenerator);
     }
 
     function createSection(id, mainContainerIdentity) {
