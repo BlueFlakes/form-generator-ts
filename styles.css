@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body, #main__container, #survey {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#main__container {
+    width: 70%;
+    background-color: #e3e3ca;
+    padding: 15px;
+}
+
+#survey {
+    flex-flow: column;
+}
+
+.section {
+    padding-top: 15px;
+}
