@@ -9,7 +9,7 @@ export class ArrayList {
 
     removeAt(index) {
         if (index < 0 || index >= this.container.length)
-            throw "Index out of container bounds";
+            throw "Index out of universalContainer bounds";
 
         this.container.splice(index, 1);
     }
@@ -34,5 +34,11 @@ export class ArrayList {
                 return index < this.container.length;
             }
         }
+    }
+
+    forEach(callback) {
+        this.container.forEach((currentElement) => {
+            callback(currentElement);
+        })
     }
 }
