@@ -1,13 +1,34 @@
 export const HolderStrategyIdentity = Object.freeze({
-    shortTextInput: 'shortTextInput',
-    textArea: 'textArea',
-    radioBoxStrategy: 'radioBoxStrategy',
-    checkBoxStrategy: 'checkBoxStrategy'
+    radioBoxStrategy: 'radioBox',
+    checkBoxStrategy: 'checkBox',
+    none: 'None',
+    textAreaStrategy: 'textArea',
+    datetimeBoxStrategy: 'datetime'
 });
 
 export class InputHolderStrategies {
     static createHolderStrategyByIdentity(identity) {
         switch (identity) {
+            case HolderStrategyIdentity.none:
+                return () => { return (node) => { return node;}};
+
+            case HolderStrategyIdentity.textAreaStrategy:
+                return () => {
+                    return (node) => {
+                        let textArea = document.createElement('textarea');
+                        textArea.id = node.id;
+                        return textArea;
+                    }
+                };
+
+            case HolderStrategyIdentity.datetimeBoxStrategy:
+                return () => {
+                    return (node) => {
+                        node.type = 'datetime-local';
+                        return node;
+                    }
+                };
+
             case HolderStrategyIdentity.radioBoxStrategy:
                 return multipleItemsStrategy().bind({}, 'radio');
 

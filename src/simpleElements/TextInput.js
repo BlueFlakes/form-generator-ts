@@ -1,4 +1,4 @@
-export class ShortTextInput {
+export class TextInput {
     constructor(id) {
         this._id = id;
         this._currentValue = null;

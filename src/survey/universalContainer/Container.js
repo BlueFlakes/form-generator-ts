@@ -6,7 +6,7 @@ export class Container {
         this.nodes = new Map();
     }
 
-    addNode(key, deliveredNode) {
+    putNode(key, deliveredNode) {
         this.nodes.set(key, deliveredNode);
     }
 

@@ -12,6 +12,7 @@ import {ContainerView} from "./survey/universalContainer/ContainerView.js";
 import {Container} from "./survey/universalContainer/Container.js";
 import {Button} from "./simpleElements/Button.js";
 import {TitleInput} from "./simpleElements/TitleInput.js";
+import {SectionEnum} from "./survey/section/Section.js";
 
 
 const ApplicationController = (function () {
@@ -19,44 +20,68 @@ const ApplicationController = (function () {
 
     {
         document.getElementById('clear__form').addEventListener('click', function () {
-            form.clear();
+            form.clearWindow();
         });
 
         document.getElementById('render__form').addEventListener('click', function () {
             form.render();
         });
 
+        document.getElementById('add__textInput').addEventListener('click', function () {
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.none);
+            addNewQuestionIntoSurvey(question, []);
+        });
+
+        document.getElementById('add__datetime').addEventListener('click', function () {
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.datetimeBoxStrategy);
+            addNewQuestionIntoSurvey(question, []);
+        });
+
+        document.getElementById('add__textArea').addEventListener('click', function () {
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.textAreaStrategy);
+            addNewQuestionIntoSurvey(question, []);
+        });
+
+        document.getElementById('delete__form').addEventListener('click', function () {
+            form.clearWindow();
+            form.clearSections();
+        });
+
         document.getElementById('add__radioQuestion').addEventListener('click', function () {
-            addNewQuestionIntoSurvey('radio', HolderStrategyIdentity.radioBoxStrategy);
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.radioBoxStrategy);
+            let btn = createButton('radio', question);
+
+            addNewQuestionIntoSurvey(question, [btn]);
         });
 
         document.getElementById('add__checkbox').addEventListener('click', function () {
-            addNewQuestionIntoSurvey('checkbox', HolderStrategyIdentity.checkBoxStrategy);
+            let question = createQuestion(idGenerator.nextId(), HolderStrategyIdentity.checkBoxStrategy);
+            let btn = createButton('checkbox', question);
+
+            addNewQuestionIntoSurvey(question, [btn]);
         })
     }
+
+    function createButton(buttonName, question) {
+        return new Button(idGenerator.nextId(), buttonName, () => question.addSimpleElement());
+    }
     
-    function addNewQuestionIntoSurvey(buttonName, holderStrategyIdentity) {
-        let id = idGenerator.nextId();
+    function addNewQuestionIntoSurvey(question, options) {
 
-        let question = (function (newId) {
-            let strategy = createHolderStrategy(holderStrategyIdentity)(newId);
-            return createQuestion(newId, strategy);
-        })(id);
+        let specialOptions = createSimpleContainer(idGenerator.nextId());
 
-        let specialOptionsContainerId = idGenerator.nextId();
-        let specialOptions = createSimpleContainer(specialOptionsContainerId);
-        let btn = new Button(idGenerator.nextId(), buttonName, () => question.addSimpleElement());
-        specialOptions.addNode(btn.getId(), btn);
-
+        options.forEach((opt) => {
+            specialOptions.putNode(opt.getId(), opt);
+        });
 
         let titleContainer = createSimpleContainer(idGenerator.nextId());
         let titleInput = new TitleInput(idGenerator.nextId());
-        titleContainer.addNode(titleInput.getId(), titleInput);
+        titleContainer.putNode(titleInput.getId(), titleInput);
 
         let section = createSection(idGenerator.nextId(), 'survey');
-        section.addToSectionBody(titleContainer);
-        section.addToSectionBody(question);
-        section.addToSectionBody(specialOptions);
+        section.addToSectionBody(SectionEnum.TitleSection, titleContainer);
+        section.addToSectionBody(SectionEnum.QuestionSection, question);
+        section.addToSectionBody(random(), specialOptions);
 
         section.inject();
 
@@ -64,14 +89,18 @@ const ApplicationController = (function () {
 
         form.put(section.getId(), section);
     }
-
-    function createHolderStrategy(strategyIdentity) {
-        return InputHolderStrategies.createHolderStrategyByIdentity(strategyIdentity);
+    
+    function random() {
+        // random mean that we are not interested in this ID but still we don't want any collision
+        return idGenerator.nextId();
     }
 
-    function createQuestion(id, holderStrategy) {
+    function createQuestion(id, type) {
+        let holderStrategy = InputHolderStrategies.
+                createHolderStrategyByIdentity(type)(id);
+
         let questionView = new QuestionView(id, holderStrategy);
-        return new Question(id, questionView);
+        return new Question(id, questionView, type);
     }
 
     function createSection(id, mainContainerIdentity) {

@@ -1,11 +1,20 @@
 import {idGenerator} from "../../shared/IdGenerator.js";
-import {ShortTextInput} from "../../simpleElements/ShortTextInput.js";
+import {TextInput} from "../../simpleElements/TextInput.js";
 
 export class Question {
-    constructor(id, questionView) {
+    constructor(id, questionView, questionType) {
         this._questionId = id;
         this._simpleElements = new Map();
         this._questionView = questionView;
+        this._questionType = questionType;
+    }
+
+    getQuestionType() {
+        return this._questionType;
+    }
+
+    getSimpleElements() {
+        return this._simpleElements;
     }
 
     getId() {
@@ -14,7 +23,7 @@ export class Question {
 
     addSimpleElement() {
         let uniqueId = idGenerator.nextId();
-        let simpleElement = new ShortTextInput(uniqueId);
+        let simpleElement = new TextInput(uniqueId);
 
         this._simpleElements.set(uniqueId, simpleElement);
         this._questionView.injectSimpleElement(simpleElement);
