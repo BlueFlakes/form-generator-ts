@@ -16,10 +16,14 @@ export class Form {
         }
     }
 
-    clear() {
+    clearWindow() {
         this.sections.forEach((currentSection) => {
             currentSection.destroy();
         });
+    }
+
+    clearSections() {
+        this.sections.clear();
     }
 
     render() {

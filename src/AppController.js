@@ -20,7 +20,7 @@ const ApplicationController = (function () {
 
     {
         document.getElementById('clear__form').addEventListener('click', function () {
-            form.clear();
+            form.clearWindow();
         });
 
         document.getElementById('render__form').addEventListener('click', function () {
