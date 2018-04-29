@@ -2,10 +2,15 @@ import {idGenerator} from "../../shared/IdGenerator.js";
 import {ShortTextInput} from "../../simpleElements/ShortTextInput.js";
 
 export class Question {
-    constructor(id, questionView) {
+    constructor(id, questionView, questionType) {
         this._questionId = id;
         this._simpleElements = new Map();
         this._questionView = questionView;
+        this._questionType = questionType;
+    }
+
+    getQuestionType() {
+        return this._questionType;
     }
 
     getId() {

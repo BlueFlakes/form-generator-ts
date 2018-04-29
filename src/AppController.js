@@ -38,10 +38,11 @@ const ApplicationController = (function () {
     function addNewQuestionIntoSurvey(buttonName, holderStrategyIdentity) {
         let id = idGenerator.nextId();
 
-        let question = (function (newId) {
-            let strategy = createHolderStrategy(holderStrategyIdentity)(newId);
-            return createQuestion(newId, strategy);
-        })(id);
+        let question = (function (newId, type) {
+            let strategy = createHolderStrategy(type)(newId);
+            return createQuestion(newId, strategy, type);
+
+        })(id, holderStrategyIdentity);
 
         let specialOptionsContainerId = idGenerator.nextId();
         let specialOptions = createSimpleContainer(specialOptionsContainerId);
@@ -69,9 +70,9 @@ const ApplicationController = (function () {
         return InputHolderStrategies.createHolderStrategyByIdentity(strategyIdentity);
     }
 
-    function createQuestion(id, holderStrategy) {
+    function createQuestion(id, holderStrategy, type) {
         let questionView = new QuestionView(id, holderStrategy);
-        return new Question(id, questionView);
+        return new Question(id, questionView, type);
     }
 
     function createSection(id, mainContainerIdentity) {
