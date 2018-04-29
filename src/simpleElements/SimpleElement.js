@@ -1,4 +1,4 @@
-export class TextInput {
+export class SimpleElement {
     constructor(id) {
         this._id = id;
         this._currentValue = null;
@@ -12,6 +12,10 @@ export class TextInput {
 
     getCurrentValue() {
         return this._currentValue;
+    }
+
+    setCurrentValue(recentValue) {
+        this._currentValue = recentValue;
     }
 
     getId() {

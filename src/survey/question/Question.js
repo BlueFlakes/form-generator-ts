@@ -1,5 +1,5 @@
 import {idGenerator} from "../../shared/IdGenerator.js";
-import {TextInput} from "../../simpleElements/TextInput.js";
+import {SimpleElement} from "../../simpleElements/SimpleElement.js";
 
 export class Question {
     constructor(id, questionView, questionType) {
@@ -23,7 +23,7 @@ export class Question {
 
     addSimpleElement() {
         let uniqueId = idGenerator.nextId();
-        let simpleElement = new TextInput(uniqueId);
+        let simpleElement = new SimpleElement(uniqueId);
 
         this._simpleElements.set(uniqueId, simpleElement);
         this._questionView.injectSimpleElement(simpleElement);

@@ -1,6 +1,6 @@
-import {TextInput} from "./TextInput.js";
+import {SimpleElement} from "./SimpleElement.js";
 
-export class TitleInput extends TextInput {
+export class TitleInput extends SimpleElement {
     generateNode() {
         let node = super.generateNode();
         node.placeholder = 'Title';

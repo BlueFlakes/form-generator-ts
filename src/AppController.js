@@ -19,11 +19,8 @@ const ApplicationController = (function () {
     const form = new Form();
 
     {
-        document.getElementById('clear__form').addEventListener('click', function () {
-            form.clearWindow();
-        });
-
         document.getElementById('render__form').addEventListener('click', function () {
+            form.clearWindow();
             form.render();
         });
 
@@ -68,13 +65,13 @@ const ApplicationController = (function () {
     
     function addNewQuestionIntoSurvey(question, options) {
 
-        let specialOptions = createSimpleContainer(idGenerator.nextId());
+        let specialOptions = createSimpleContainer(idGenerator.nextId(), 'spec');
 
         options.forEach((opt) => {
             specialOptions.putNode(opt.getId(), opt);
         });
 
-        let titleContainer = createSimpleContainer(idGenerator.nextId());
+        let titleContainer = createSimpleContainer(idGenerator.nextId(), 'title');
         let titleInput = new TitleInput(idGenerator.nextId());
         titleContainer.putNode(titleInput.getId(), titleInput);
 
