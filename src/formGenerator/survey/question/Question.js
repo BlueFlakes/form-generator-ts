@@ -1,4 +1,4 @@
-import {idGenerator} from "../../shared/IdGenerator.js";
+import {idGenerator} from "../../../shared/IdGenerator.js";
 import {SimpleElement} from "../../simpleElements/SimpleElement.js";
 
 export class Question {
@@ -37,6 +37,11 @@ export class Question {
 
     inject(outerContainerIdentity) {
         this._questionView.injectContainerWithChildNodes(this._simpleElements, outerContainerIdentity);
+    }
+
+    // trick to workaround re rendering only this part of section
+    reRender() {
+        this._questionView.reRenderContainer(this._simpleElements);
     }
 
     destroy() {
