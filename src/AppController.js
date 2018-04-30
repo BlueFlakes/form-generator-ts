@@ -10,7 +10,6 @@ const ApplicationController = (function () {
 
     {
         document.getElementById('render__form').addEventListener('click', function () {
-            form.clearWindow();
             form.render();
         });
 
@@ -32,8 +31,20 @@ const ApplicationController = (function () {
         });
 
         document.getElementById('delete__form').addEventListener('click', function () {
-            form.clearWindow();
             form.clearSections();
+        });
+
+        document.getElementById('add__list').addEventListener('click', function () {
+            let question = FormCreator.createQuestion(idGenerator.nextId(),
+                                                      FieldGeneratorStrategyIdentity.listStrategy);
+
+            let btn = FormCreator.createButton('option', question, () => {
+                question.addSimpleElement();
+                question.reRender();
+            });
+
+            handle(question, [btn]);
+            question.reRender();
         });
 
         document.getElementById('add__radioQuestion').addEventListener('click', function () {

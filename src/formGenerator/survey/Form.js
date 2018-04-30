@@ -16,17 +16,20 @@ export class Form {
         }
     }
 
-    clearWindow() {
+    _clearWindow() {
         this.sections.forEach((currentSection) => {
             currentSection.destroy();
         });
     }
 
     clearSections() {
+        this._clearWindow();
         this.sections.clear();
     }
 
     render() {
+        this._clearWindow();
+
         this.sections.forEach((currentSection) => {
             currentSection.inject();
         });

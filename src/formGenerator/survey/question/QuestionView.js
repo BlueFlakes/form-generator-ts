@@ -16,16 +16,37 @@ export class QuestionView {
         simpleElement.injectEventListener();
     }
 
+    reRenderContainer(simpleElements) {
+        let container = document.getElementById(this._questionsContainerIdentity);
+        deleteChildNodes(container);
+        QuestionView._injectSimpleElements(container, simpleElements);
+        QuestionView._injectEventListeners(simpleElements);
+
+        function deleteChildNodes(myNode) {
+            while (myNode.firstChild) {
+                myNode.removeChild(myNode.firstChild);
+            }
+        }
+    }
+
     injectContainerWithChildNodes(simpleElements, outerContainerIdentity) {
         let element = document.createElement('div');
         element.id = this._questionsContainerIdentity;
 
-        simpleElements.forEach((currentSimpleElement) => {
-            let elementView = currentSimpleElement.generateNode();
-            element.appendChild(elementView);
-        });
-
+        QuestionView._injectSimpleElements(element, simpleElements);
         document.getElementById(outerContainerIdentity).appendChild(element);
+        QuestionView._injectEventListeners(simpleElements);
+    }
+
+    static _injectSimpleElements(container, simpleElements) {
+        let currentIndex = 0;
+        simpleElements.forEach((currentSimpleElement) => {
+            let elementView = currentSimpleElement.generateNode(currentIndex++);
+            container.appendChild(elementView);
+        });
+    }
+
+    static _injectEventListeners(simpleElements) {
         simpleElements.forEach((currentSimpleElement) => {
             currentSimpleElement.injectEventListener();
         })

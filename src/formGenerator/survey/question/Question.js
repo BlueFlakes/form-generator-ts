@@ -39,6 +39,11 @@ export class Question {
         this._questionView.injectContainerWithChildNodes(this._simpleElements, outerContainerIdentity);
     }
 
+    // trick to workaround re rendering only this part of section
+    reRender() {
+        this._questionView.reRenderContainer(this._simpleElements);
+    }
+
     destroy() {
         this._questionView.removeThisQuestion();
     }
