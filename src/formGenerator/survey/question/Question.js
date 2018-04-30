@@ -1,4 +1,4 @@
-import {idGenerator} from "../../shared/IdGenerator.js";
+import {idGenerator} from "../../../shared/IdGenerator.js";
 import {SimpleElement} from "../../simpleElements/SimpleElement.js";
 
 export class Question {

@@ -1,18 +1,18 @@
-import {Question} from "./survey/question/Question.js";
-import {QuestionView} from "./survey/question/QuestionView.js";
+import {Question} from "./formGenerator/survey/question/Question.js";
+import {QuestionView} from "./formGenerator/survey/question/QuestionView.js";
 import {idGenerator} from "./shared/IdGenerator.js";
 import {
     FieldGeneratorStrategyIdentity,
     FieldGeneratorStrategies
-} from "./simpleElements/FieldGeneratorStrategies.js";
-import {Form} from "./survey/Form.js";
-import {SectionView} from "./survey/section/SectionView.js";
-import {Section} from "./survey/section/Section.js";
-import {ContainerView} from "./survey/universalContainer/ContainerView.js";
-import {Container} from "./survey/universalContainer/Container.js";
-import {Button} from "./simpleElements/Button.js";
-import {TitleInput} from "./simpleElements/TitleInput.js";
-import {SectionEnum} from "./survey/section/Section.js";
+} from "./formGenerator/simpleElements/FieldGeneratorStrategies.js";
+import {Form} from "./formGenerator/survey/Form.js";
+import {SectionView} from "./formGenerator/survey/section/SectionView.js";
+import {Section} from "./formGenerator/survey/section/Section.js";
+import {ContainerView} from "./formGenerator/survey/universalContainer/ContainerView.js";
+import {Container} from "./formGenerator/survey/universalContainer/Container.js";
+import {Button} from "./formGenerator/simpleElements/Button.js";
+import {TitleInput} from "./formGenerator/simpleElements/TitleInput.js";
+import {SectionEnum} from "./formGenerator/survey/section/Section.js";
 
 
 const ApplicationController = (function () {

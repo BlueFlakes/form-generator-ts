@@ -1,4 +1,4 @@
-import {ArrayList} from "../../shared/ArrayList.js";
+import {ArrayList} from "../../../shared/ArrayList.js";
 
 export const SectionEnum = Object.freeze({
     TitleSection: 'Title-Section',
