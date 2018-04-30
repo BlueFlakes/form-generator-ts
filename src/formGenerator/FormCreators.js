@@ -9,8 +9,8 @@ import {idGenerator} from "../shared/IdGenerator.js";
 import {QuestionView} from "./survey/question/QuestionView.js";
 import {Container} from "./survey/universalContainer/Container.js";
 
-export function createButton(buttonName, question) {
-    return new Button(idGenerator.nextId(), buttonName, () => question.addSimpleElement());
+export function createButton(buttonName, question, task=() => question.addSimpleElement()) {
+    return new Button(idGenerator.nextId(), buttonName, task);
 }
 
 export function createFilledSection(question, options) {
