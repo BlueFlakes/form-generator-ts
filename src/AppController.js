@@ -36,7 +36,7 @@ const ApplicationController = (function () {
 
         document.getElementById('add__list').addEventListener('click', function () {
             let question = FormCreator.createQuestion(idGenerator.nextId(),
-                                                      FieldGeneratorStrategyIdentity.listStrategy);
+                                                      FieldGeneratorStrategyIdentity.enumeratedListStrategy);
 
             let btn = FormCreator.createButton('option', question, () => {
                 question.addSimpleElement();

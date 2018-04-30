@@ -1,6 +1,6 @@
 import {SimpleElement} from "./SimpleElement.js";
 
-export class ListElement extends SimpleElement {
+export class EnumeratedListElement extends SimpleElement {
 
     generateNode(currentIndex) {
         let currentNode = super.generateNode();

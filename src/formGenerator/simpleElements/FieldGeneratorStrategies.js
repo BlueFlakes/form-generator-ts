@@ -3,7 +3,7 @@ import {Radio} from "./Radio.js";
 import {Date} from "./Date.js";
 import {TextArea} from "./TextArea.js";
 import {SimpleElement} from "./SimpleElement.js";
-import {ListElement} from "./ListElement.js";
+import {EnumeratedListElement} from "./EnumeratedListElement.js";
 
 export const FieldGeneratorStrategyIdentity = Object.freeze({
     radioBoxStrategy: 'radioBox',
@@ -11,7 +11,7 @@ export const FieldGeneratorStrategyIdentity = Object.freeze({
     none: 'None',
     textAreaStrategy: 'textArea',
     datetimeBoxStrategy: 'datetime',
-    listStrategy: 'list'
+    enumeratedListStrategy: 'enumeratedList'
 });
 
 export class FieldGeneratorStrategies {
@@ -22,9 +22,9 @@ export class FieldGeneratorStrategies {
                     return new SimpleElement(id);
                 };
 
-            case FieldGeneratorStrategyIdentity.listStrategy:
+            case FieldGeneratorStrategyIdentity.enumeratedListStrategy:
                 return function (id) {
-                    return new ListElement(id);
+                    return new EnumeratedListElement(id);
                 };
 
             case FieldGeneratorStrategyIdentity.textAreaStrategy:
