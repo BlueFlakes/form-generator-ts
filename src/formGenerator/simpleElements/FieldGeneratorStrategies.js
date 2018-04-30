@@ -3,13 +3,15 @@ import {Radio} from "./Radio.js";
 import {Date} from "./Date.js";
 import {TextArea} from "./TextArea.js";
 import {SimpleElement} from "./SimpleElement.js";
+import {ListElement} from "./ListElement.js";
 
 export const FieldGeneratorStrategyIdentity = Object.freeze({
     radioBoxStrategy: 'radioBox',
     checkBoxStrategy: 'checkBox',
     none: 'None',
     textAreaStrategy: 'textArea',
-    datetimeBoxStrategy: 'datetime'
+    datetimeBoxStrategy: 'datetime',
+    listStrategy: 'list'
 });
 
 export class FieldGeneratorStrategies {
@@ -18,6 +20,11 @@ export class FieldGeneratorStrategies {
             case FieldGeneratorStrategyIdentity.none:
                 return function (id) {
                     return new SimpleElement(id);
+                };
+
+            case FieldGeneratorStrategyIdentity.listStrategy:
+                return function (id) {
+                    return new ListElement(id);
                 };
 
             case FieldGeneratorStrategyIdentity.textAreaStrategy:
