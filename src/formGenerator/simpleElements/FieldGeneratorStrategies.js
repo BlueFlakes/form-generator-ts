@@ -4,6 +4,7 @@ import {Date} from "./Date.js";
 import {TextArea} from "./TextArea.js";
 import {SimpleElement} from "./SimpleElement.js";
 import {EnumeratedListElement} from "./EnumeratedListElement.js";
+import {RangeList} from "./RangeList.js";
 
 export const FieldGeneratorStrategyIdentity = Object.freeze({
     radioBoxStrategy: 'radioBox',
@@ -11,7 +12,8 @@ export const FieldGeneratorStrategyIdentity = Object.freeze({
     none: 'None',
     textAreaStrategy: 'textArea',
     datetimeBoxStrategy: 'datetime',
-    enumeratedListStrategy: 'enumeratedList'
+    enumeratedListStrategy: 'enumeratedList',
+    rangeListStrategy: 'rangeList'
 });
 
 export class FieldGeneratorStrategies {
@@ -30,6 +32,11 @@ export class FieldGeneratorStrategies {
             case FieldGeneratorStrategyIdentity.textAreaStrategy:
                 return function (id) {
                     return new TextArea(id);
+                };
+
+            case FieldGeneratorStrategyIdentity.rangeListStrategy:
+                return function (id) {
+                    return new RangeList(id);
                 };
 
             case FieldGeneratorStrategyIdentity.datetimeBoxStrategy:

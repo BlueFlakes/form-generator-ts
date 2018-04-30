@@ -34,7 +34,7 @@ const ApplicationController = (function () {
             form.clearSections();
         });
 
-        document.getElementById('add__list').addEventListener('click', function () {
+        document.getElementById('add__enumeratedList').addEventListener('click', function () {
             let question = FormCreator.createQuestion(idGenerator.nextId(),
                                                       FieldGeneratorStrategyIdentity.enumeratedListStrategy);
 
@@ -45,6 +45,13 @@ const ApplicationController = (function () {
 
             handle(question, [btn]);
             question.reRender();
+        });
+
+        document.getElementById('add__rangeList').addEventListener('click', function () {
+            let question = FormCreator.createQuestion(idGenerator.nextId(),
+                                                      FieldGeneratorStrategyIdentity.rangeListStrategy);
+
+            handle(question, []);
         });
 
         document.getElementById('add__radioQuestion').addEventListener('click', function () {
