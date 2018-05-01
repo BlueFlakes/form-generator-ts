@@ -14,7 +14,7 @@ const ApplicationController = (function () {
         });
 
         document.getElementById('add__textInput').addEventListener('click', function () {
-            let question = FormCreator.createQuestion(idGenerator.nextId(), FieldGeneratorStrategyIdentity.none);
+            let question = FormCreator.createQuestion(idGenerator.nextId(), FieldGeneratorStrategyIdentity.simpleStrategy);
             handle(question, []);
         });
 
@@ -70,7 +70,7 @@ const ApplicationController = (function () {
             let btn = FormCreator.createButton('checkbox', question);
 
             handle(question, [btn]);
-        })
+        });
     }
     
     function handle(question, options) {

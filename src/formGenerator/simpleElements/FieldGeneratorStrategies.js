@@ -9,7 +9,7 @@ import {RangeList} from "./RangeList.js";
 export const FieldGeneratorStrategyIdentity = Object.freeze({
     radioBoxStrategy: 'radioBox',
     checkBoxStrategy: 'checkBox',
-    none: 'None',
+    simpleStrategy: 'simple',
     textAreaStrategy: 'textArea',
     datetimeBoxStrategy: 'datetime',
     enumeratedListStrategy: 'enumeratedList',
@@ -17,9 +17,10 @@ export const FieldGeneratorStrategyIdentity = Object.freeze({
 });
 
 export class FieldGeneratorStrategies {
+    // noinspection OverlyComplexFunctionJS
     static createFieldGeneratorByIdentity(identity) {
         switch (identity) {
-            case FieldGeneratorStrategyIdentity.none:
+            case FieldGeneratorStrategyIdentity.simpleStrategy:
                 return function (id) {
                     return new SimpleElement(id);
                 };
