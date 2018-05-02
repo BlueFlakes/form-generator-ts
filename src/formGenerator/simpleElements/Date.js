@@ -1,4 +1,5 @@
 import {SimpleElement} from "./SimpleElement.js";
+import {DOM} from "../../shared/Constants.js";
 
 // I recommend to find another way for injecting Date ( like three fields with select )
 // or inject automatically current date
@@ -8,16 +9,16 @@ export class Date extends SimpleElement {
     }
 
     injectEventListener() {
-        document.getElementById(this.getId()).addEventListener('change', (event) => {
-            console.log(this.getId());
+        let thisId = this.getId();
+        let onEvent = DOM.onEvent.change;
+
+        DOM.attach.event.byId(thisId, onEvent, event => {
             this.setCurrentValue(event.target.value);
-            console.log("value: " + event.target.value);
-            console.log(this.getCurrentValue());
-        })
+        });
     }
 
     generateNode() {
-        let element = document.createElement('input');
+        let element = DOM.create.element("input");
         element.type = "date";
         element.value = this.getCurrentValue();
         element.id = this.getId();

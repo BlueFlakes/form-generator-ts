@@ -1,3 +1,5 @@
+import {DOM} from "../../shared/Constants.js";
+
 export class Button {
     constructor(id, name, task) {
         this._id = `btn-${id}`;
@@ -6,8 +8,8 @@ export class Button {
     }
 
     generateNode() {
-        let button = document.createElement('button');
-        button.type = 'button';
+        let button = DOM.create.element("button");
+        button.type = "button";
         button.textContent = `+ ${this._name}`;
         button.id = this._id;
 
@@ -19,11 +21,12 @@ export class Button {
     }
 
     injectEventListener() {
-        document.getElementById(this._id).addEventListener('click', this._task);
+        let onEvent = DOM.onEvent.click;
+        DOM.attach.event.byId(this._id, onEvent, this._task);
     }
 
     destroy() {
-        let self = document.getElementById(this._id);
+        let self = DOM.getElement.byId(this._id);
         let parent = self.parentNode;
 
         parent.removeChild(self);
