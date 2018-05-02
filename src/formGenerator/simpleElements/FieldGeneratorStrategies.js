@@ -7,13 +7,13 @@ import {EnumeratedListElement} from "./EnumeratedListElement.js";
 import {RangeList} from "./RangeList.js";
 
 export const FieldGeneratorStrategyIdentity = Object.freeze({
-    radioBoxStrategy: 'radioBox',
-    checkBoxStrategy: 'checkBox',
-    simpleStrategy: 'simple',
-    textAreaStrategy: 'textArea',
-    datetimeBoxStrategy: 'datetime',
-    enumeratedListStrategy: 'enumeratedList',
-    rangeListStrategy: 'rangeList'
+    radioBoxStrategy: "radioBox",
+    checkBoxStrategy: "checkBox",
+    simpleStrategy: "simple",
+    textAreaStrategy: "textArea",
+    datetimeBoxStrategy: "datetime",
+    enumeratedListStrategy: "enumeratedList",
+    rangeListStrategy: "rangeList"
 });
 
 export class FieldGeneratorStrategies {
