@@ -1,6 +1,5 @@
-import {instanceConstructor} from "../../../shared/Common";
-import {idAdder} from "../../../shared/IdGenerator";
-import {Section} from "../section/Section";
+import {instanceConstructor} from "../../../shared/Common.js";
+import {idAdder} from "../../../shared/IdGenerator.js";
 
 export class Container {
     constructor(id, containerIdentity, containerView) {
