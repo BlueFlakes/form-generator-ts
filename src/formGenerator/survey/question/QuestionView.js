@@ -12,7 +12,9 @@ export class QuestionView {
 
     injectSimpleElement(simpleElement) {
         let child = simpleElement.generateNode();
-        document.getElementById(this._questionsContainerIdentity).appendChild(child);
+        let containerNode = document.getElementById(this._questionsContainerIdentity);
+        containerNode.appendChild(child);
+
         simpleElement.injectEventListener();
     }
 
@@ -30,26 +32,28 @@ export class QuestionView {
     }
 
     injectContainerWithChildNodes(simpleElements, outerContainerIdentity) {
-        let element = document.createElement('div');
+        let element = document.createElement("div");
         element.id = this._questionsContainerIdentity;
 
         QuestionView._injectSimpleElements(element, simpleElements);
-        document.getElementById(outerContainerIdentity).appendChild(element);
+        let outerContainerNode = document.getElementById(outerContainerIdentity);
+        outerContainerNode.appendChild(element);
+
         QuestionView._injectEventListeners(simpleElements);
     }
 
     static _injectSimpleElements(container, simpleElements) {
         let currentIndex = 0;
-        simpleElements.forEach((currentSimpleElement) => {
+        simpleElements.forEach(currentSimpleElement => {
             let elementView = currentSimpleElement.generateNode(currentIndex++);
             container.appendChild(elementView);
         });
     }
 
     static _injectEventListeners(simpleElements) {
-        simpleElements.forEach((currentSimpleElement) => {
+        simpleElements.forEach(currentSimpleElement => {
             currentSimpleElement.injectEventListener();
-        })
+        });
     }
 
     removeThisQuestion() {

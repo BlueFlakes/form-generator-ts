@@ -1,8 +1,6 @@
-import {ArrayList} from "../../../shared/ArrayList.js";
-
 export const SectionEnum = Object.freeze({
-    TitleSection: 'Title-Section',
-    QuestionSection: 'Question-Section'
+    TitleSection: "Title-Section",
+    QuestionSection: "Question-Section"
 });
 
 export class Section {
@@ -29,6 +27,8 @@ export class Section {
         this._sectionView.createSection();
 
         let containerId = this._sectionView.getId();
-        this._sectionBody.forEach((part) => part.inject(containerId));
+        this._sectionBody.forEach(part => {
+            part.inject(containerId);
+        });
     }
 }

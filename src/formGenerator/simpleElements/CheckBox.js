@@ -1,4 +1,5 @@
 import {SimpleElement} from "./SimpleElement.js";
+import {DOM} from "../../shared/Constants.js";
 
 export class CheckBox extends SimpleElement {
     constructor(id, parentId) {
@@ -9,9 +10,9 @@ export class CheckBox extends SimpleElement {
     generateNode() {
         let node = super.generateNode();
 
-        let div = document.createElement('div');
-        let input = document.createElement('input');
-        input.type = 'checkbox';
+        let div = DOM.create.element("div");
+        let input = DOM.create.element("input");
+        input.type = "checkbox";
         div.appendChild(input);
         div.appendChild(node);
         input.name = this._parentId;

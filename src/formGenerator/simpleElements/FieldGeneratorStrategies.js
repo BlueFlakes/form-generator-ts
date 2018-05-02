@@ -3,33 +3,41 @@ import {Radio} from "./Radio.js";
 import {Date} from "./Date.js";
 import {TextArea} from "./TextArea.js";
 import {SimpleElement} from "./SimpleElement.js";
-import {ListElement} from "./ListElement.js";
+import {EnumeratedListElement} from "./EnumeratedListElement.js";
+import {RangeList} from "./RangeList.js";
 
 export const FieldGeneratorStrategyIdentity = Object.freeze({
-    radioBoxStrategy: 'radioBox',
-    checkBoxStrategy: 'checkBox',
-    none: 'None',
-    textAreaStrategy: 'textArea',
-    datetimeBoxStrategy: 'datetime',
-    listStrategy: 'list'
+    radioBoxStrategy: "radioBox",
+    checkBoxStrategy: "checkBox",
+    simpleStrategy: "simple",
+    textAreaStrategy: "textArea",
+    datetimeBoxStrategy: "datetime",
+    enumeratedListStrategy: "enumeratedList",
+    rangeListStrategy: "rangeList"
 });
 
 export class FieldGeneratorStrategies {
+    // noinspection OverlyComplexFunctionJS
     static createFieldGeneratorByIdentity(identity) {
         switch (identity) {
-            case FieldGeneratorStrategyIdentity.none:
+            case FieldGeneratorStrategyIdentity.simpleStrategy:
                 return function (id) {
                     return new SimpleElement(id);
                 };
 
-            case FieldGeneratorStrategyIdentity.listStrategy:
+            case FieldGeneratorStrategyIdentity.enumeratedListStrategy:
                 return function (id) {
-                    return new ListElement(id);
+                    return new EnumeratedListElement(id);
                 };
 
             case FieldGeneratorStrategyIdentity.textAreaStrategy:
                 return function (id) {
                     return new TextArea(id);
+                };
+
+            case FieldGeneratorStrategyIdentity.rangeListStrategy:
+                return function (id) {
+                    return new RangeList(id);
                 };
 
             case FieldGeneratorStrategyIdentity.datetimeBoxStrategy:
@@ -46,6 +54,9 @@ export class FieldGeneratorStrategies {
                 return function (id, parentId) {
                     return new CheckBox(id, parentId);
                 };
+
+            default:
+                throw "Error invalid strategy identity provided.";
         }
     }
 }

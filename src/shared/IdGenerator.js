@@ -5,5 +5,5 @@ export const idGenerator = (function () {
         nextId: function () {
             return ++id;
         }
-    })
-})();
+    });
+}());

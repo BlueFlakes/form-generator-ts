@@ -1,3 +1,5 @@
+import {DOM} from "../../shared/Constants.js";
+
 export class SimpleElement {
     constructor(id) {
         this._id = id;
@@ -5,7 +7,9 @@ export class SimpleElement {
     }
 
     injectEventListener() {
-        document.getElementById(this._id).addEventListener('keyup', (e) => {
+        let onEvent = DOM.onEvent.keyUp;
+
+        DOM.attach.event.byId(this._id, onEvent, e => {
             this._currentValue = e.target.value;
             console.log(this._currentValue);
         });
@@ -24,7 +28,7 @@ export class SimpleElement {
     }
 
     generateNode() {
-        let element = document.createElement('input');
+        let element = DOM.create.element("input");
         element.type = "text";
         element.value = this.getCurrentValue();
         element.id = this._id;

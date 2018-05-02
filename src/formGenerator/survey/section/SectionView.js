@@ -9,10 +9,12 @@ export class SectionView {
     }
 
     createSection() {
-        let sectionContainerDiv = document.createElement('div');
+        let sectionContainerDiv = document.createElement("div");
         sectionContainerDiv.id = this._sectionContainerIdentity;
-        sectionContainerDiv.className = 'section';
-        document.getElementById(this._mainContainerIdentity).appendChild(sectionContainerDiv);
+        sectionContainerDiv.className = "section";
+
+        let mainContainerNode = document.getElementById(this._mainContainerIdentity);
+        mainContainerNode.appendChild(sectionContainerDiv);
     }
 
     destroySection() {
