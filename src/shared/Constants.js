@@ -7,7 +7,9 @@ export const DOM = (function () {
                 byClassName: attachEventByClassName
             }),
 
-            child: attachChild
+            child: Object.freeze({
+                byId: attachChildById
+            })
         }),
 
         onEvent: Object.freeze({
@@ -34,9 +36,8 @@ export const DOM = (function () {
         node.addEventListener(onEvent, executable);
     }
 
-
-    function attachChild(identity, deliveredChild) {
-        let node = docSelector(identity);
+    function attachChildById(identity, deliveredChild) {
+        let node = docSelectorById(identity);
         node.appendChild(deliveredChild);
     }
 
