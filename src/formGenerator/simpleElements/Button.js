@@ -1,4 +1,6 @@
 import {DOM} from "../../shared/Constants.js";
+import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class Button {
     constructor(id, name, task) {
@@ -31,4 +33,10 @@ export class Button {
 
         parent.removeChild(self);
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._buttonCreator)(...args);
+    }
 }
+
+Button._buttonCreator = instanceConstructor(Button);

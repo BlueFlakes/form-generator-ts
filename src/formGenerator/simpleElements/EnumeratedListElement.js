@@ -1,5 +1,7 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {DOM} from "../../shared/Constants.js";
+import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class EnumeratedListElement extends SimpleElement {
 
@@ -17,4 +19,10 @@ export class EnumeratedListElement extends SimpleElement {
 
         return simpleContainer;
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._enumeratedListElementCreator)(...args);
+    }
 }
+
+EnumeratedListElement._enumeratedListElementCreator = instanceConstructor(EnumeratedListElement);
