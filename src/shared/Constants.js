@@ -2,11 +2,15 @@ export const DOM = (function () {
 
     return Object.freeze({
         attach: Object.freeze({
-            event: attachEvent,
+            event: Object.freeze({
+                byId: attachEventById,
+                byClassName: attachEventByClassName
+            }),
+
             child: attachChild
         }),
 
-        OnEvent: Object.freeze({
+        onEvent: Object.freeze({
             click: "click",
             keyUp: "keyup"
         }),
@@ -16,21 +20,35 @@ export const DOM = (function () {
         })
     });
 
-    function createElement(elementIdentity) {
-        return document.createElement(elementIdentity);
+    function createElement(identity) {
+        return document.createElement(identity);
     }
 
-    function attachEvent(identity, onEvent, task) {
-        let node = docSelector(identity);
-        node.addEventListener(onEvent, task);
+    function attachEventById(identity, onEvent, executable) {
+        let node = docSelectorById(identity);
+        node.addEventListener(onEvent, executable);
     }
-    
+
+    function attachEventByClassName(identity, onEvent, executable) {
+        let node = docSelectorByClassName(identity);
+        node.addEventListener(onEvent, executable);
+    }
+
+
     function attachChild(identity, deliveredChild) {
         let node = docSelector(identity);
         node.appendChild(deliveredChild);
     }
-    
+
     function docSelector(identity) {
         return document.querySelector(identity);
+    }
+    
+    function docSelectorById(identity) {
+        return document.getElementById(identity);
+    }
+    
+    function docSelectorByClassName(identity) {
+        return document.getElementsByClassName(identity);
     }
 }());

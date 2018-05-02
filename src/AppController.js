@@ -11,32 +11,32 @@ const ApplicationController = (function () {
 
     (function attachEventListeners() {
 
-        DOM.attach.event("#render__form", DOM.OnEvent.click, function () {
+        DOM.attach.event.byId("render__form", DOM.onEvent.click, function () {
             form.render();
         });
 
-        DOM.attach.event("#delete__form", DOM.OnEvent.click, function () {
+        DOM.attach.event.byId("delete__form", DOM.onEvent.click, function () {
             form.clearSections();
         });
 
         (function attachQuestionCreators() {
 
-            DOM.attach.event("#add__textInput", DOM.OnEvent.click, function () {
+            DOM.attach.event.byId("add__textInput", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.simpleStrategy);
                 handle(question, []);
             });
 
-            DOM.attach.event("#add__datetime", DOM.OnEvent.click, function () {
+            DOM.attach.event.byId("add__datetime", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.datetimeBoxStrategy);
                 handle(question, []);
             });
 
-            DOM.attach.event("#add__textArea", DOM.OnEvent.click, function () {
+            DOM.attach.event.byId("add__textArea", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.textAreaStrategy);
                 handle(question, []);
             });
 
-            DOM.attach.event("#add__enumeratedList", DOM.OnEvent.click, function () {
+            DOM.attach.event.byId("add__enumeratedList", DOM.onEvent.click, function () {
                 let question = (function () {
                     let strategyIdentity = FieldGeneratorStrategyIdentity.enumeratedListStrategy;
                     return FormCreator.createQuestion(strategyIdentity);
@@ -55,18 +55,18 @@ const ApplicationController = (function () {
                 question.reRender();
             });
 
-            DOM.attach.event("#add__rangeList", DOM.OnEvent.click, function () {
+            DOM.attach.event.byId("add__rangeList", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.rangeListStrategy);
                 handle(question, []);
             });
 
-            DOM.attach.event("#add__radioQuestion", DOM.OnEvent.click, function () {
+            DOM.attach.event.byId("add__radioQuestion", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.radioBoxStrategy);
                 let btn = FormCreator.createButton("radio", question);
                 handle(question, [btn]);
             });
 
-            DOM.attach.event("#add__checkbox", DOM.OnEvent.click, function () {
+            DOM.attach.event.byId("add__checkbox", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.checkBoxStrategy);
                 let btn = FormCreator.createButton("checkbox", question);
                 handle(question, [btn]);
