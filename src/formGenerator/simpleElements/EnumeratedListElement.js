@@ -24,6 +24,6 @@ export class EnumeratedListElement extends SimpleElement {
     }
 }
 
-EnumeratedListElement._enumeratedListElementCreator = (...params) => {
+EnumeratedListElement._enumeratedListElementCreator = params => {
     return new EnumeratedListElement(...params);
 };

@@ -16,6 +16,6 @@ export class TextArea extends SimpleElement {
     }
 }
 
-TextArea._textAreaCreator = (...params) => {
+TextArea._textAreaCreator = params => {
     return new TextArea(...params);
 };

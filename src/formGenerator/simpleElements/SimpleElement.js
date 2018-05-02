@@ -41,6 +41,6 @@ export class SimpleElement {
     }
 }
 
-SimpleElement._simpleElementCreator = (...params) => {
+SimpleElement._simpleElementCreator = params => {
     return new SimpleElement(...params);
 };

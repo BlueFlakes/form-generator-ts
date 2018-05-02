@@ -39,6 +39,6 @@ export class Section {
     }
 }
 
-Section._sectionCreator = (...params) => {
+Section._sectionCreator = params => {
     return new Section(...params);
 };

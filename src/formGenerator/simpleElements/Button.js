@@ -38,6 +38,6 @@ export class Button {
     }
 }
 
-Button._buttonCreator = (...params) => {
+Button._buttonCreator = params => {
     return new Button(...params);
 };

@@ -80,6 +80,6 @@ export class RangeList {
     }
 }
 
-RangeList._rangeListCreator = (...params) => {
+RangeList._rangeListCreator = params => {
     return new RangeList(...params);
 };

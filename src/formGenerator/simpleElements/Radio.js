@@ -26,6 +26,6 @@ export class Radio extends SimpleElement {
     }
 }
 
-Radio._radioCreator = (...params) => {
+Radio._radioCreator = params => {
     return new Radio(...params);
 };

@@ -26,6 +26,6 @@ export class CheckBox extends SimpleElement {
     }
 }
 
-CheckBox._checkBoxCreator = (...params) => {
+CheckBox._checkBoxCreator = params => {
     return new CheckBox(...params);
 };

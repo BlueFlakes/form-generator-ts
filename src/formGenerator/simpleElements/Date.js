@@ -31,6 +31,6 @@ export class Date extends SimpleElement {
     }
 }
 
-Date._dateCreator = (...params) => {
+Date._dateCreator = params => {
     return new Date(...params);
 };

@@ -14,6 +14,6 @@ export class TitleInput extends SimpleElement {
     }
 }
 
-TitleInput._titleInputCreator = (...params) => {
+TitleInput._titleInputCreator = params => {
     return new TitleInput(...params);
 };

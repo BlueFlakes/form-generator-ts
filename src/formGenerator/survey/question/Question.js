@@ -53,6 +53,6 @@ export class Question {
     }
 }
 
-Question._questionCreator = (...params) => {
+Question._questionCreator = params => {
     return new Question(...params);
 };
