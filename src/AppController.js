@@ -10,14 +10,16 @@ const ApplicationController = (function () {
     const form = new Form();
 
     (function attachEventListeners() {
+        
+        (function attachFormStateManagers() {
+            DOM.attach.event.byId("render__form", DOM.onEvent.click, function () {
+                form.render();
+            });
 
-        DOM.attach.event.byId("render__form", DOM.onEvent.click, function () {
-            form.render();
-        });
-
-        DOM.attach.event.byId("delete__form", DOM.onEvent.click, function () {
-            form.clearSections();
-        });
+            DOM.attach.event.byId("delete__form", DOM.onEvent.click, function () {
+                form.clearSections();
+            });
+        }());
 
         (function attachQuestionCreators() {
 
