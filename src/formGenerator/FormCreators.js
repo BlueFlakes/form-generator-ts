@@ -10,15 +10,28 @@ import {QuestionView} from "./survey/question/QuestionView.js";
 import {Container} from "./survey/universalContainer/Container.js";
 
 export function createButton(buttonName, question, task=() => question.addSimpleElement()) {
-    let newId = idGenerator.nextId();
-    return new Button(newId, buttonName, task);
+    return Button.createWithSettledId(buttonName, task);
 }
 
 export function createFilledSection(question, options) {
+    let optionsContainer = createAdditionalOptionsContainer(options);
+    let titleContainer = createTitleContainer();
 
-    let specialOptions = (function (additionalOptions) {
-        let newId = idGenerator.nextId();
-        let temp = createSimpleContainer(newId, "spec");
+    return createSectionContainer(titleContainer, question, optionsContainer);
+
+    function createTitleContainer() {
+        let temp = createSimpleContainer("title");
+
+        let titleInput = TitleInput.createWithSettledId();
+        let titleID = titleInput.getId();
+
+        temp.putNode(titleID, titleInput);
+
+        return temp;
+    }
+
+    function createAdditionalOptionsContainer(additionalOptions) {
+        let temp = createSimpleContainer("spec");
 
         additionalOptions.forEach(opt => {
             let optId = opt.getId();
@@ -26,24 +39,10 @@ export function createFilledSection(question, options) {
         });
 
         return temp;
-    }(options));
+    }
 
-    let titleContainer = (function () {
-        let containerId = idGenerator.nextId();
-        let temp = createSimpleContainer(containerId, "title");
-
-        let nextId = idGenerator.nextId();
-        let titleInput = new TitleInput(nextId);
-
-        let titleID = titleInput.getId();
-        temp.putNode(titleID, titleInput);
-
-        return temp;
-    }());
-
-    return (function (title, question, additionals) {
-        let sectionId = idGenerator.nextId();
-        let section = createSection(sectionId, "survey");
+    function createSectionContainer(title, question, additionals) {
+        let section = createSection("survey");
 
         section.addToSectionBody(SectionEnum.TitleSection, title);
         section.addToSectionBody(SectionEnum.QuestionSection, question);
@@ -51,7 +50,7 @@ export function createFilledSection(question, options) {
         let randomId = random();
         section.addToSectionBody(randomId, additionals);
         return section;
-    }(titleContainer, question, specialOptions));
+    }
 }
 
 export function random() {
@@ -59,28 +58,19 @@ export function random() {
     return idGenerator.nextId();
 }
 
-export function createQuestion(type, id=idGenerator.nextId()) {
+export function createQuestion(type) {
     let fieldGenerator = FieldGeneratorStrategies.createFieldGeneratorByIdentity(type);
+    let questionViewCreator = id => new QuestionView(id);
 
-    let questionViewCreator = function (viewId) {
-        return new QuestionView(viewId);
-    };
-
-    return new Question(id, questionViewCreator, type, fieldGenerator);
+    return Question.createWithSettledId(questionViewCreator, type, fieldGenerator);
 }
 
-export function createSection(id, mainContainerIdentity) {
-    let sectionViewCreator = id => {
-        return new SectionView(id, mainContainerIdentity);
-    };
-
-    return new Section(id, sectionViewCreator);
+export function createSection(mainContainerIdentity) {
+    let sectionViewCreator = id => new SectionView(id, mainContainerIdentity);
+    return Section.createWithSettledId(sectionViewCreator);
 }
 
-export function createSimpleContainer(id, containerIdentity) {
-    let containerViewCreator = id => {
-        return new ContainerView(id);
-    };
-
-    return new Container(id, containerIdentity, containerViewCreator);
+export function createSimpleContainer(identity) {
+    let containerViewCreator = id => new ContainerView(id);
+    return Container.createWithSettledId(identity, containerViewCreator);
 }
