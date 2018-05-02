@@ -14,11 +14,17 @@ export const DOM = (function () {
 
         onEvent: Object.freeze({
             click: "click",
-            keyUp: "keyup"
+            keyUp: "keyup",
+            change: "change"
         }),
 
         create: Object.freeze({
             element: createElement
+        }),
+
+        getElement: Object.freeze({
+            byId: docSelectorById,
+            byClassName: docSelectorByClassName
         })
     });
 
