@@ -41,19 +41,17 @@ export function createFilledSection(question, options) {
         return temp;
     }());
 
-    let section = (function (title, question, additionals) {
+    return (function (title, question, additionals) {
         let sectionId = idGenerator.nextId();
-        createSection(sectionId, "survey");
-        
-        section.addToSectionBody(SectionEnum.TitleSection, title);
-        section.addToSectionBody(SectionEnum.QuestionSection, question);
+        let temporarySection = createSection(sectionId, "survey");
+
+        temporarySection.addToSectionBody(SectionEnum.TitleSection, title);
+        temporarySection.addToSectionBody(SectionEnum.QuestionSection, question);
 
         let randomId = random();
-        section.addToSectionBody(randomId, additionals);
-
+        temporarySection.addToSectionBody(randomId, additionals);
+        return temporarySection;
     }(titleContainer, question, specialOptions));
-
-    return section;
 }
 
 export function random() {
