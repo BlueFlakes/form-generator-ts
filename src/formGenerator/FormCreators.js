@@ -43,14 +43,14 @@ export function createFilledSection(question, options) {
 
     return (function (title, question, additionals) {
         let sectionId = idGenerator.nextId();
-        let temporarySection = createSection(sectionId, "survey");
+        let section = createSection(sectionId, "survey");
 
-        temporarySection.addToSectionBody(SectionEnum.TitleSection, title);
-        temporarySection.addToSectionBody(SectionEnum.QuestionSection, question);
+        section.addToSectionBody(SectionEnum.TitleSection, title);
+        section.addToSectionBody(SectionEnum.QuestionSection, question);
 
         let randomId = random();
-        temporarySection.addToSectionBody(randomId, additionals);
-        return temporarySection;
+        section.addToSectionBody(randomId, additionals);
+        return section;
     }(titleContainer, question, specialOptions));
 }
 
