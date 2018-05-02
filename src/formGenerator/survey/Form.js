@@ -17,7 +17,7 @@ export class Form {
     }
 
     _clearWindow() {
-        this.sections.forEach((currentSection) => {
+        this.sections.forEach(currentSection => {
             currentSection.destroy();
         });
     }
@@ -30,7 +30,7 @@ export class Form {
     render() {
         this._clearWindow();
 
-        this.sections.forEach((currentSection) => {
+        this.sections.forEach(currentSection => {
             currentSection.inject();
         });
     }
