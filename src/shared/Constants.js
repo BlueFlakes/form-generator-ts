@@ -7,7 +7,8 @@ export const DOM = (function () {
         }),
 
         OnEvent: Object.freeze({
-            click: "click"
+            click: "click",
+            keyUp: "keyup"
         }),
 
         create: Object.freeze({
