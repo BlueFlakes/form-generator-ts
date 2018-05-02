@@ -21,7 +21,7 @@ export class EnumeratedListElement extends SimpleElement {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._enumeratedListElementCreator)(args);
+        return idAdder(this._enumeratedListElementCreator)(...args);
     }
 }
 

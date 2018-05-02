@@ -23,7 +23,7 @@ export class Radio extends SimpleElement {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._radioCreator)(args);
+        return idAdder(this._radioCreator)(...args);
     }
 }
 

@@ -36,7 +36,7 @@ export class Section {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._sectionCreator)(args);
+        return idAdder(this._sectionCreator)(...args);
     }
 }
 

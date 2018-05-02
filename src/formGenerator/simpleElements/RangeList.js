@@ -77,7 +77,7 @@ export class RangeList {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._rangeListCreator)(args);
+        return idAdder(this._rangeListCreator)(...args);
     }
 }
 

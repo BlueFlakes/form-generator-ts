@@ -11,7 +11,7 @@ export class TitleInput extends SimpleElement {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._titleInputCreator)(args);
+        return idAdder(this._titleInputCreator)(...args);
     }
 }
 

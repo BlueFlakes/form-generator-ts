@@ -38,7 +38,7 @@ export class SimpleElement {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._simpleElementCreator)(args);
+        return idAdder(this._simpleElementCreator)(...args);
     }
 }
 

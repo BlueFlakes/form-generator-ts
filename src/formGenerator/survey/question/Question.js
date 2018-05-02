@@ -50,7 +50,7 @@ export class Question {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._questionCreator)(args);
+        return idAdder(this._questionCreator)(...args);
     }
 }
 

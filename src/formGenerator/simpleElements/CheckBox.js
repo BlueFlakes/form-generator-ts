@@ -23,7 +23,7 @@ export class CheckBox extends SimpleElement {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._checkBoxCreator)(args);
+        return idAdder(this._checkBoxCreator)(...args);
     }
 }
 

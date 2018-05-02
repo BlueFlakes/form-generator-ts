@@ -13,7 +13,7 @@ export class TextArea extends SimpleElement {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._textAreaCreator)(args);
+        return idAdder(this._textAreaCreator)(...args);
     }
 }
 

@@ -28,7 +28,7 @@ export class Date extends SimpleElement {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._dateCreator)(args);
+        return idAdder(this._dateCreator)(...args);
     }
 }
 

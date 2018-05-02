@@ -35,7 +35,7 @@ export class Button {
     }
 
     static createWithSettledId(...args) {
-        return idAdder(this._buttonCreator)(args);
+        return idAdder(this._buttonCreator)(...args);
     }
 }
 

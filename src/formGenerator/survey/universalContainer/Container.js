@@ -1,3 +1,7 @@
+import {instanceConstructor} from "../../../shared/Common";
+import {idAdder} from "../../../shared/IdGenerator";
+import {Section} from "../section/Section";
+
 export class Container {
     constructor(id, containerIdentity, containerView) {
         this._id = `${containerIdentity}-${id}`;
@@ -25,4 +29,10 @@ export class Container {
     destroy() {
         this._containerView.removeContainer();
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._containerCreator)(...args);
+    }
 }
+
+Container._containerCreator = instanceConstructor(Container);
