@@ -54,6 +54,9 @@ export class FieldGeneratorStrategies {
                 return function (id, parentId) {
                     return new CheckBox(id, parentId);
                 };
+
+            default:
+                throw "Error invalid strategy identity provided.";
         }
     }
 }
