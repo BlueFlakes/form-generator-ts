@@ -1,6 +1,7 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {DOM} from "../../shared/Constants.js";
 import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 // I recommend to find another way for injecting Date ( like three fields with select )
 // or inject automatically current date
@@ -31,6 +32,4 @@ export class Date extends SimpleElement {
     }
 }
 
-Date._dateCreator = params => {
-    return new Date(...params);
-};
+Date._dateCreator = instanceConstructor(Date);

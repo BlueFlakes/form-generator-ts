@@ -1,6 +1,7 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {DOM} from "../../shared/Constants.js";
 import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class EnumeratedListElement extends SimpleElement {
 
@@ -24,6 +25,4 @@ export class EnumeratedListElement extends SimpleElement {
     }
 }
 
-EnumeratedListElement._enumeratedListElementCreator = params => {
-    return new EnumeratedListElement(...params);
-};
+EnumeratedListElement._enumeratedListElementCreator = instanceConstructor(EnumeratedListElement);

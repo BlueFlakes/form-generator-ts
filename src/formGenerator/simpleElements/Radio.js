@@ -1,6 +1,7 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {DOM} from "../../shared/Constants.js";
 import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class Radio extends SimpleElement {
     constructor(id, parentId) {
@@ -26,6 +27,4 @@ export class Radio extends SimpleElement {
     }
 }
 
-Radio._radioCreator = params => {
-    return new Radio(...params);
-};
+Radio._radioCreator = instanceConstructor(Radio);

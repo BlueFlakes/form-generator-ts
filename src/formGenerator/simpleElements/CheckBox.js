@@ -1,6 +1,7 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {DOM} from "../../shared/Constants.js";
 import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class CheckBox extends SimpleElement {
     constructor(id, parentId) {
@@ -26,6 +27,4 @@ export class CheckBox extends SimpleElement {
     }
 }
 
-CheckBox._checkBoxCreator = params => {
-    return new CheckBox(...params);
-};
+CheckBox._checkBoxCreator = instanceConstructor(CheckBox);

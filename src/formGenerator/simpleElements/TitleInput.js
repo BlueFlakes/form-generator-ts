@@ -1,5 +1,6 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class TitleInput extends SimpleElement {
     generateNode() {
@@ -14,6 +15,4 @@ export class TitleInput extends SimpleElement {
     }
 }
 
-TitleInput._titleInputCreator = params => {
-    return new TitleInput(...params);
-};
+TitleInput._titleInputCreator = instanceConstructor(TitleInput);

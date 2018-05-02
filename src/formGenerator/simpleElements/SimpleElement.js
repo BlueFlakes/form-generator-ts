@@ -1,5 +1,6 @@
 import {DOM} from "../../shared/Constants.js";
 import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class SimpleElement {
     constructor(id) {
@@ -41,6 +42,4 @@ export class SimpleElement {
     }
 }
 
-SimpleElement._simpleElementCreator = params => {
-    return new SimpleElement(...params);
-};
+SimpleElement._simpleElementCreator = instanceConstructor(SimpleElement);

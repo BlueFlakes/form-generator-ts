@@ -5,6 +5,7 @@ import {
 } from "./FieldGeneratorStrategies.js";
 import {DOM} from "../../shared/Constants.js";
 import {idAdder} from "../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../shared/Common.js";
 
 export class RangeList {
     constructor(id) {
@@ -80,6 +81,4 @@ export class RangeList {
     }
 }
 
-RangeList._rangeListCreator = params => {
-    return new RangeList(...params);
-};
+RangeList._rangeListCreator = instanceConstructor(RangeList);

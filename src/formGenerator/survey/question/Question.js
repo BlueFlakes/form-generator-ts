@@ -1,5 +1,6 @@
 import {idGenerator} from "../../../shared/IdGenerator.js";
 import {idAdder} from "../../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../../shared/Common.js";
 
 export class Question {
     constructor(id, questionView, questionType, fieldGenerator) {
@@ -53,6 +54,4 @@ export class Question {
     }
 }
 
-Question._questionCreator = params => {
-    return new Question(...params);
-};
+Question._questionCreator = instanceConstructor(Question);

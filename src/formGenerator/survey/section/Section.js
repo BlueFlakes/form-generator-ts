@@ -1,4 +1,5 @@
 import {idAdder} from "../../../shared/IdGenerator.js";
+import {instanceConstructor} from "../../../shared/Common.js";
 
 export const SectionEnum = Object.freeze({
     TitleSection: "Title-Section",
@@ -39,6 +40,4 @@ export class Section {
     }
 }
 
-Section._sectionCreator = params => {
-    return new Section(...params);
-};
+Section._sectionCreator = instanceConstructor(Section);

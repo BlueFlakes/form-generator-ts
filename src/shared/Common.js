@@ -1,6 +1,6 @@
 export const contextAdder = function (fn, ...ctx) {
     return function (...args) {
-        let flattenParams = flatten([...ctx, ...args]);
+        let flattenParams = flatten([ctx, args]);
         return fn(flattenParams);
     };
 };
@@ -15,4 +15,10 @@ function flatten(arr, result = []) {
         }
     }
     return result;
+}
+
+export function instanceConstructor(Constructor) {
+    return function (params) {
+        return new Constructor(...params);
+    };
 }
