@@ -1,3 +1,6 @@
+import {Question} from "../question/Question";
+import {idAdder} from "../../../shared/IdGenerator";
+
 export const SectionEnum = Object.freeze({
     TitleSection: "Title-Section",
     QuestionSection: "Question-Section"
@@ -31,4 +34,12 @@ export class Section {
             part.inject(containerId);
         });
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._sectionCreator)(args);
+    }
 }
+
+Section._sectionCreator = (...params) => {
+    return new Section(...params);
+};

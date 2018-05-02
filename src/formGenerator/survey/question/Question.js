@@ -1,5 +1,5 @@
 import {idGenerator} from "../../../shared/IdGenerator.js";
-import {SimpleElement} from "../../simpleElements/SimpleElement.js";
+import {idAdder} from "../../../shared/IdGenerator.js";
 
 export class Question {
     constructor(id, questionView, questionType, fieldGenerator) {
@@ -47,4 +47,12 @@ export class Question {
     destroy() {
         this._questionView.removeThisQuestion();
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._questionCreator)(args);
+    }
 }
+
+Question._questionCreator = (...params) => {
+    return new Question(...params);
+};

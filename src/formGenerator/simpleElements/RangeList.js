@@ -4,6 +4,7 @@ import {
     FieldGeneratorStrategyIdentity
 } from "./FieldGeneratorStrategies.js";
 import {DOM} from "../../shared/Constants.js";
+import {idAdder} from "../../shared/IdGenerator.js";
 
 export class RangeList {
     constructor(id) {
@@ -24,6 +25,10 @@ export class RangeList {
                 }
             };
         }
+    }
+
+    getId() {
+        return this._id;
     }
 
     generateNode() {
@@ -69,4 +74,12 @@ export class RangeList {
             max: this._max
         };
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._rangeListCreator)(args);
+    }
 }
+
+RangeList._rangeListCreator = (...params) => {
+    return new RangeList(...params);
+};

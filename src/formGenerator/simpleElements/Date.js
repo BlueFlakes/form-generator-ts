@@ -1,5 +1,6 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {DOM} from "../../shared/Constants.js";
+import {idAdder} from "../../shared/IdGenerator.js";
 
 // I recommend to find another way for injecting Date ( like three fields with select )
 // or inject automatically current date
@@ -24,4 +25,12 @@ export class Date extends SimpleElement {
         element.id = this.getId();
         return element;
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._dateCreator)(args);
+    }
 }
+
+Date._dateCreator = (...params) => {
+    return new Date(...params);
+};

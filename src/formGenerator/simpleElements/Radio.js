@@ -1,5 +1,6 @@
 import {SimpleElement} from "./SimpleElement.js";
 import {DOM} from "../../shared/Constants.js";
+import {idAdder} from "../../shared/IdGenerator.js";
 
 export class Radio extends SimpleElement {
     constructor(id, parentId) {
@@ -19,4 +20,12 @@ export class Radio extends SimpleElement {
 
         return div;
     }
+
+    static createWithSettledId(...args) {
+        return idAdder(this._radioCreator)(args);
+    }
 }
+
+Radio._radioCreator = (...params) => {
+    return new Radio(...params);
+};
