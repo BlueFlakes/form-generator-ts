@@ -1,20 +1,38 @@
-import {SimpleElement} from "./SimpleElement.js";
 import {idGenerator} from "../../shared/IdGenerator.js";
+import {
+    FieldGeneratorStrategies,
+    FieldGeneratorStrategyIdentity
+} from "./FieldGeneratorStrategies.js";
+import {DOM} from "../../shared/Constants.js";
 
 export class RangeList {
     constructor(id) {
         this._id = id;
-        this._low = new SimpleElement(idGenerator.nextId());
-        this._max = new SimpleElement(idGenerator.nextId());
+
+        let elementGenerator = createSimpleElementGenerator();
+        this._low = elementGenerator.createElement();
+        this._max = elementGenerator.createElement();
+        
+        function createSimpleElementGenerator() {
+            let strategyName = FieldGeneratorStrategyIdentity.simpleStrategy;
+            let fieldGenerator = FieldGeneratorStrategies.createFieldGeneratorByIdentity(strategyName);
+
+            return {
+                createElement: function () {
+                    let newId = idGenerator.nextId();
+                    return fieldGenerator(newId);
+                }
+            };
+        }
     }
 
     generateNode() {
         let lowNode = this._low.generateNode();
-        let lowLabel = createLabel(lowNode, 'Low:');
+        let lowLabel = createLabel(lowNode, "Low:");
         let lowContainer = attachIntoContainer(lowLabel, lowNode);
 
         let maxNode = this._max.generateNode();
-        let maxLabel = createLabel(maxNode, 'Max:');
+        let maxLabel = createLabel(maxNode, "Max:");
         let maxContainer = attachIntoContainer(maxLabel, maxNode);
 
         let mainContainer = attachIntoContainer(lowContainer, maxContainer);
@@ -23,8 +41,8 @@ export class RangeList {
         return mainContainer;
         
         function attachIntoContainer(...elements) {
-            let container = document.createElement('div');
-            elements.forEach((el) => {
+            let container = DOM.create.element("div");
+            elements.forEach(el => {
                 container.appendChild(el);
             });
 
@@ -32,7 +50,7 @@ export class RangeList {
         }
 
         function createLabel(node, content) {
-            let label = document.createElement('label');
+            let label = DOM.create.element("label");
             label.for = node.id;
             label.textContent = content;
 
@@ -49,6 +67,6 @@ export class RangeList {
         return {
             min: this._low,
             max: this._max
-        }
+        };
     }
 }
