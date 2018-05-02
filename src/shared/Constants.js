@@ -8,8 +8,16 @@ export const DOM = (function () {
 
         OnEvent: Object.freeze({
             click: "click"
+        }),
+
+        create: Object.freeze({
+            element: createElement
         })
     });
+
+    function createElement(elementIdentity) {
+        return document.createElement(elementIdentity);
+    }
 
     function attachEvent(identity, onEvent, task) {
         let node = docSelector(identity);
