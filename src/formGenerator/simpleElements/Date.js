@@ -12,8 +12,8 @@ export class Date extends SimpleElement {
         let thisId = this.getId();
         let onEvent = DOM.onEvent.change;
 
-        DOM.attach.event.byId(thisId, onEvent, event => {
-            this.setCurrentValue(event.target.value);
+        DOM.attach.event.byId(thisId, onEvent, e => {
+            this.setCurrentValue(e.target.value);
         });
     }
 
