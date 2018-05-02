@@ -1,5 +1,4 @@
-import {Question} from "../question/Question";
-import {idAdder} from "../../../shared/IdGenerator";
+import {idAdder} from "../../../shared/IdGenerator.js";
 
 export const SectionEnum = Object.freeze({
     TitleSection: "Title-Section",
