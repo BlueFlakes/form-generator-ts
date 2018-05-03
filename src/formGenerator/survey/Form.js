@@ -22,7 +22,7 @@ export class Form {
         });
     }
 
-    clearSections() {
+    deleteWindow() {
         this.clearWindow();
         this.sections.clear();
     }
