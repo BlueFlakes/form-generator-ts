@@ -19,8 +19,10 @@ export class SectionView {
 
     destroySection() {
         let section = document.getElementById(this._sectionContainerIdentity);
-        let sectionParent = section.parentNode;
 
-        sectionParent.removeChild(section);
+        if (section !== null) {
+            let sectionParent = section.parentNode;
+            sectionParent.removeChild(section);
+        }
     }
 }
