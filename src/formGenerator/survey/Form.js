@@ -16,6 +16,10 @@ export class Form {
         }
     }
 
+    getSections() {
+        return this.sections;
+    }
+
     clearWindow() {
         this.sections.forEach(currentSection => {
             currentSection.destroy();
