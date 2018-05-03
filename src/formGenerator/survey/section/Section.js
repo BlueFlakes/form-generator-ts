@@ -22,6 +22,14 @@ export class Section {
         return this._id;
     }
 
+    getQuestion() {
+        return this._sectionBody.get(SectionEnum.QuestionSection);
+    }
+
+    getTitle() {
+        return this._sectionBody.get(SectionEnum.TitleSection);
+    }
+
     destroy() {
         this._sectionView.destroySection();
     }
