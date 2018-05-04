@@ -9,10 +9,9 @@ export class CheckBoxView {
         let onEvent = DOM.onEvent.click;
 
         DOM.attach.event.byId(id, onEvent, e => {
-            console.log(e.target.value);
-
             this._checkBoxVM.notifyObservers({
-                value: e.target.value
+                isChecked: e.target.checked,
+                value: e.target.id
             });
         });
     }
@@ -28,7 +27,6 @@ export class CheckBoxView {
 
             let input = createCheckBox();
             input.id = checkBoxID;
-            input.value = "off";
 
             let content = checkBoxModel.getLabel();
             let label = createLabel(checkBoxID, content);

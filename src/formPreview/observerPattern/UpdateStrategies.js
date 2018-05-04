@@ -13,7 +13,7 @@ export class UpdateStrategies {
                 return simpleStrategy();
 
             case UpdateStrategiesEnum.radioUpdate:
-                break;
+                return simpleStrategy();
 
             case UpdateStrategiesEnum.checkBoxUpdate:
                 return checkBoxStrategy();
@@ -33,12 +33,18 @@ export class UpdateStrategies {
 
         function checkBoxStrategy() {
             return function (valueHolder) {
-                valueHolder.setValue([]);
+                let set = new Set();
+                valueHolder.setValue(set);
 
                 return function (context) {
-                    let currentValues = valueHolder.getValue();
-                    let newval = currentValues.splice(0,0, context.value);
-                    valueHolder.setValue(newval);
+                    let isChecked = context.isChecked;
+                    let value = context.value;
+
+                    if (isChecked) {
+                        set.add(value);
+                    } else {
+                        set.delete(value);
+                    }
                 };
             };
         }
