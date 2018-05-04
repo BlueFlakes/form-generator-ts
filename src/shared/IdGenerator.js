@@ -1,4 +1,4 @@
-import {contextAdder} from "./Common.js";
+import {leftSideContextAdder} from "./Common.js";
 
 export const idGenerator = (function () {
     let id = 0;
@@ -13,6 +13,6 @@ export const idGenerator = (function () {
 export const idAdder = (function (idGenerator) {
     return function (fn) {
         let newId = idGenerator.nextId();
-        return contextAdder(fn, newId);
+        return leftSideContextAdder(fn, newId);
     };
 }(idGenerator));
