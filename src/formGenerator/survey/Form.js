@@ -16,19 +16,23 @@ export class Form {
         }
     }
 
-    _clearWindow() {
+    getSections() {
+        return this.sections;
+    }
+
+    clearWindow() {
         this.sections.forEach(currentSection => {
             currentSection.destroy();
         });
     }
 
-    clearSections() {
-        this._clearWindow();
+    deleteWindow() {
+        this.clearWindow();
         this.sections.clear();
     }
 
     render() {
-        this._clearWindow();
+        this.clearWindow();
 
         this.sections.forEach(currentSection => {
             currentSection.inject();

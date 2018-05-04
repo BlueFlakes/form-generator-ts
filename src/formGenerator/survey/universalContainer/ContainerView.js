@@ -1,18 +1,21 @@
+import {DOM} from "../../../shared/Constants.js";
+
 export class ContainerView {
     constructor(id) {
         this._id = id;
     }
 
     injectContainerWithChildNodes(outerContainerIdentity, nodes) {
-        let div = document.createElement('div');
+        let div = document.createElement("div");
         div.id = this._id;
 
-        nodes.forEach((option) => {
-            div.appendChild(option.generateNode());
+        nodes.forEach(option => {
+            let node = option.generateNode();
+            div.appendChild(node);
         });
 
-        document.getElementById(outerContainerIdentity).appendChild(div);
-        nodes.forEach((option) => {
+        DOM.attach.child.byId(outerContainerIdentity, div);
+        nodes.forEach(option => {
             option.injectEventListener();
         });
     }
