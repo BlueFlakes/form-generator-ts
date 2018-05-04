@@ -4,12 +4,23 @@ import {
 import {Form} from "./formGenerator/survey/Form.js";
 import * as FormCreator from "./formGenerator/FormCreators.js";
 import {DOM} from "./shared/Constants.js";
+import {SimpleElement} from "./formGenerator/simpleElements/SimpleElement.js";
+import {createPreview} from "./formPreview/PreviewCreator.js";
 
 const ApplicationController = (function () {
     "use strict";
     const form = new Form();
 
     (function attachEventListeners() {
+
+        (function previewMode() {
+            DOM.attach.event.byId("show__preview", DOM.onEvent.click, function (e) {
+                form.clearWindow();
+                createPreview(form);
+
+
+            });
+        }());
         
         (function attachFormStateManagers() {
             DOM.attach.event.byId("render__form", DOM.onEvent.click, function () {
@@ -17,11 +28,11 @@ const ApplicationController = (function () {
             });
 
             DOM.attach.event.byId("delete__form", DOM.onEvent.click, function () {
-                form.clearSections();
+                form.deleteWindow();
             });
         }());
 
-        (function attachQuestionCreators() {
+        (function attachFormCreators() {
 
             DOM.attach.event.byId("add__textInput", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.simpleStrategy);
@@ -52,6 +63,7 @@ const ApplicationController = (function () {
 
                     return FormCreator.createButton("option", question, btnStrategy);
                 }(question));
+                btn.setAttribute("className", "btn btn-success");
 
                 handle(question, [btn]);
                 question.reRender();
@@ -65,12 +77,14 @@ const ApplicationController = (function () {
             DOM.attach.event.byId("add__radioQuestion", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.radioBoxStrategy);
                 let btn = FormCreator.createButton("radio", question);
+                btn.setAttribute("className", "btn btn-success");
                 handle(question, [btn]);
             });
 
             DOM.attach.event.byId("add__checkbox", DOM.onEvent.click, function () {
                 let question = FormCreator.createQuestion(FieldGeneratorStrategyIdentity.checkBoxStrategy);
                 let btn = FormCreator.createButton("checkbox", question);
+                btn.setAttribute("className", "btn btn-success");
                 handle(question, [btn]);
             });
 
