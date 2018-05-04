@@ -38,7 +38,7 @@ export class UpdateStrategies {
 
                 return function (context) {
                     let isChecked = context.isChecked;
-                    let value = context.value;
+                    let value = `InputId-${context.value}`;
 
                     if (isChecked) {
                         set.add(value);
