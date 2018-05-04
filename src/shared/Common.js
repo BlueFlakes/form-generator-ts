@@ -1,6 +1,12 @@
-export const contextAdder = function (fn, ...ctx) {
+export const leftSideContextAdder = function (fn, ...ctx) {
     return function (...args) {
         return fn([...ctx, ...args]);
+    };
+};
+
+export const rightSideContextAdder = function (fn, ...ctx) {
+    return function (...args) {
+        return fn([...args, ...ctx]);
     };
 };
 
