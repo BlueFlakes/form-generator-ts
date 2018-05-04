@@ -33,6 +33,7 @@ export class QuestionView {
 
     injectContainerWithChildNodes(simpleElements, outerContainerIdentity) {
         let element = document.createElement("div");
+        element.className = "question";
         element.id = this._questionsContainerIdentity;
 
         QuestionView._injectSimpleElements(element, simpleElements);
