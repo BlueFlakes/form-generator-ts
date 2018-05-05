@@ -4,7 +4,7 @@ import {Section, SectionEnum} from "./survey/section/Section.js";
 import {SectionView} from "./survey/section/SectionView.js";
 import {FieldGeneratorStrategies} from "./simpleElements/FieldGeneratorStrategies.js";
 import {Question} from "./survey/question/Question.js";
-import {TitleInput} from "./simpleElements/TitleInput.js";
+import {TitleInput} from "./complexElements/TitleInput.js";
 import {idGenerator} from "../shared/IdGenerator.js";
 import {QuestionView} from "./survey/question/QuestionView.js";
 import {Container} from "./survey/universalContainer/Container.js";
@@ -15,20 +15,9 @@ export function createButton(buttonName, question, task=() => question.addSimple
 
 export function createFilledSection(question, options) {
     let optionsContainer = createAdditionalOptionsContainer(options);
-    let titleContainer = createTitleContainer();
+    let titleInput = TitleInput.createWithSettledId();
 
-    return createSectionContainer(titleContainer, question, optionsContainer);
-
-    function createTitleContainer() {
-        let temp = createSimpleContainer("title");
-
-        let titleInput = TitleInput.createWithSettledId();
-        let titleID = titleInput.getId();
-
-        temp.putNode(titleID, titleInput);
-
-        return temp;
-    }
+    return createSectionContainer(titleInput, question, optionsContainer);
 
     function createAdditionalOptionsContainer(additionalOptions) {
         let temp = createSimpleContainer("spec");
