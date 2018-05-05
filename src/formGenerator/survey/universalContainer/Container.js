@@ -9,6 +9,10 @@ export class Container {
         this.nodes = new Map();
     }
 
+    getNodes() {
+        return this.nodes.values();
+    }
+
     putNode(key, deliveredNode) {
         this.nodes.set(key, deliveredNode);
     }
