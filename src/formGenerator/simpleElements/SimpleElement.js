@@ -5,7 +5,7 @@ import {instanceConstructor} from "../../shared/Common.js";
 export class SimpleElement {
     constructor(id) {
         this._id = id;
-        this._currentValue = null;
+        this._currentValue = "";
     }
 
     injectEventListener() {
