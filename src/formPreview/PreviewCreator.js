@@ -1,9 +1,7 @@
 import {Question} from "./survey/question/Question.js";
 import {QuestionVM} from "./survey/question/QuestionVM.js";
 import {QuestionView} from "./survey/question/QuestionView.js";
-import {CheckBox} from "./simpleElements/checkBox/CheckBox.js";
-import {CheckBoxVM} from "./simpleElements/checkBox/CheckBoxVM.js";
-import {CheckBoxView} from "./simpleElements/checkBox/CheckBoxView.js";
+import {MultipleFieldsBoxVM} from "./simpleElements/multipleFieldBox/MultipleFieldsBoxVM.js";
 
 import {
     UpdateStrategies,
@@ -11,46 +9,133 @@ import {
 } from "./observerPattern/UpdateStrategies.js";
 import {rightSideContextAdder} from "../shared/Common.js";
 import {ArrayList} from "../shared/ArrayList.js";
+import {CheckBoxVM} from "./simpleElements/multipleFieldBox/checkBox/CheckBoxVM.js";
+import {RadioBoxVM} from "./simpleElements/multipleFieldBox/radiobox/RadioBoxVM.js";
+import {Section} from "./survey/section/Section.js";
+import {SectionVM} from "./survey/section/SectionVM.js";
+import {FieldGeneratorStrategyIdentity} from "../formGenerator/simpleElements/FieldGeneratorStrategies.js";
+import {TitleInputVM} from "./simpleElements/titleInput/TitleInputVM.js";
+import {PreviewSectionsContainer} from "./survey/section/PreviewSectionsContainer.js";
+import {SimpleElement} from "./simpleElements/SimpleElement.js";
+import {SimpleElementVM} from "./simpleElements/simpleVM/SimpleElementVM.js";
 
-export function createPreview(form) {
+export const previewCreator = (function () {
+    let previewSectionsContainer = new PreviewSectionsContainer("survey");
 
-    let sectionsMap = form.getSections();
+    return Object.freeze({
+        injectPreviewMode: injectPreviewMode
+    });
 
-    sectionsMap.forEach((section, sectionID) => {
-        let generatedQuestion = section.getQuestion();
-        let questionID = generatedQuestion.getId();
+    function injectPreviewMode(form) {
+        previewSectionsContainer.clear();
+        let generatedSections = form.getSections();
+        loadGeneratedSectionsToPreviewElements(generatedSections);
 
-        let previewCheckBoxesCreators = (function () {
-            let arr = new ArrayList();
-            let simpleElements = generatedQuestion.getSimpleElements();
+        previewSectionsContainer.inject();
 
-            simpleElements.forEach(el => {
-                let content = el.getCurrentValue();
-                let id = el.getId();
+        function loadGeneratedSectionsToPreviewElements(generatedSections) {
+            generatedSections.forEach((section, sectionID) => {
+                let titleVM = getTitleVMFromGeneratedSection(section);
+                let questionVM = getFilledQuestionVMFromGeneratedSection(section);
 
-                let checkBoxCreator = rightSideContextAdder(params => {
-                    let checkBoxModel = new CheckBox(...params);
-                    return new CheckBoxVM(checkBoxModel);
-                }, id, content);
+                let prevSectionVM = (function (id) {
+                    let previewSection = new Section(id);
+                    return new SectionVM(previewSection);
+                }(sectionID));
 
-                arr.add(checkBoxCreator);
+                prevSectionVM.addComponent(titleVM);
+                prevSectionVM.addComponent(questionVM);
+                previewSectionsContainer.addSection(prevSectionVM);
+            });
+        }
+        
+        function getTitleVMFromGeneratedSection(generatedSection) {
+            let titleInput = generatedSection.getTitle();
+
+            let id = titleInput.getId();
+            let content = titleInput.getCurrentValue();
+            let title = new SimpleElement(id, content);
+            return new TitleInputVM(title);
+        }
+
+        function getFilledQuestionVMFromGeneratedSection(generatedSection) {
+            let generatedQuestion = generatedSection.getQuestion();
+
+            let questionID = generatedQuestion.getId();
+            let questionType = generatedQuestion.getQuestionType();
+            let {convertedSimpleElements, updateStrategyIdentity} =
+                getSimpleElementsResolver(questionType)(generatedQuestion);
+
+            let strategy = UpdateStrategies.getStrategyCreatorByIdentity(updateStrategyIdentity);
+            let questionModel = new Question(questionID);
+
+            let questionVM = new QuestionVM(questionModel, strategy);
+            convertedSimpleElements.forEach(function (element) {
+                questionVM.addSimpleNode(element);
             });
 
-            return arr;
-        }());
+            return questionVM;
+        }
+    }
+}());
 
-        let strategy = UpdateStrategies.getStrategyCreatorByIdentity(UpdateStrategiesEnum.checkBoxUpdate);
-        let ctxData = Object.freeze({
-            parentId: "survey"
+function getSimpleElementsResolver(type) {
+    switch (type) {
+        case FieldGeneratorStrategyIdentity.radioBoxStrategy:
+            return function radioElementsConverter(question) {
+                let convertedElements = multipleFieldsConverter(question, function (simpleElementModel) {
+                    return new RadioBoxVM(simpleElementModel);
+                });
+
+                return {
+                    convertedSimpleElements: convertedElements,
+                    updateStrategyIdentity: UpdateStrategiesEnum.checkBoxUpdate
+                };
+            };
+
+        case FieldGeneratorStrategyIdentity.checkBoxStrategy:
+            return function radioElementsConverter(question) {
+                let convertedElements = multipleFieldsConverter(question, function (simpleElementModel) {
+                    return new CheckBoxVM(simpleElementModel);
+                });
+
+                return {
+                    convertedSimpleElements: convertedElements,
+                    updateStrategyIdentity: UpdateStrategiesEnum.simpleUpdate
+                };
+            };
+
+        case FieldGeneratorStrategyIdentity.simpleStrategy:
+            return function (question) {
+                let convertedElements = multipleFieldsConverter(question, function (simpleElementModel) {
+                    return new SimpleElementVM(simpleElementModel);
+                });
+
+                return {
+                    convertedSimpleElements: convertedElements,
+                    updateStrategyIdentity: UpdateStrategiesEnum.simpleUpdate
+                };
+            };
+
+        default:
+            throw "Invalid converter strategy identity";
+    }
+
+    function multipleFieldsConverter(question, constructor) {
+        let simpleElements = question.getSimpleElements();
+        let temp = new ArrayList();
+
+        simpleElements.forEach(el => {
+            let content = el.getCurrentValue();
+            let id = el.getId();
+
+            let checkBoxModel = new SimpleElement(id, content);
+            let boxVM = constructor(checkBoxModel);
+
+            temp.add(boxVM);
         });
 
-        let questionModel = new Question(ctxData, questionID);
-        let questionVM = new QuestionVM(questionModel, strategy);
+        return temp;
+    }
 
-        previewCheckBoxesCreators.forEach(el => {
-            questionVM.addSimpleNode(el);
-        });
-
-        questionVM.injectNode();
-    });
 }

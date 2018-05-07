@@ -23,13 +23,7 @@ export class QuestionVM {
         return this._question.getCurrentValue();
     }
 
-    addSimpleNode(nodeCreator) {
-        let parentId = this._question.getId();
-        let ctxData = Object.freeze({
-            parentId: parentId
-        });
-
-        let node = nodeCreator(ctxData);
+    addSimpleNode(node) {
         node.addObserver(this._observer);
         this._question.addSimpleElement(node);
     }
@@ -38,10 +32,16 @@ export class QuestionVM {
         this._additionalContainerAttributes.set(identity, value);
     }
 
-    injectNode() {
+    injectNode(contextData) {
         let simpleElements = this._question.getSimpleElementsIterator();
+
+        let ids = {
+            id: this._question.getId(),
+            parentId: contextData.parentId
+        };
+
         return this._questionView.injectContainer(
-                                    this._question,
+                                    ids,
                                     simpleElements,
                                     this._additionalContainerAttributes);
     }
