@@ -18,6 +18,7 @@ export class Radio extends SimpleElement {
         div.appendChild(input);
         div.appendChild(node);
         input.name = this._parentId;
+        div.classList.add("form-inline");
 
         return div;
     }

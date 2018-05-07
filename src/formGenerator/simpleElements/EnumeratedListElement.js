@@ -12,12 +12,13 @@ export class EnumeratedListElement extends SimpleElement {
         label.for = currentNode.id;
         label.textContent = currentIndex + 1;
 
-        let simpleContainer = DOM.create.element("div");
+        let div = DOM.create.element("div");
 
-        simpleContainer.appendChild(label);
-        simpleContainer.appendChild(currentNode);
+        div.appendChild(label);
+        div.appendChild(currentNode);
+        div.classList.add("form-inline");
 
-        return simpleContainer;
+        return div;
     }
 
     static createWithSettledId(...args) {
