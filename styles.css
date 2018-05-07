@@ -16,14 +16,19 @@ body {
     width: 70%;
     background-color: #e3e3ca;
     padding: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
 #survey {
     flex-flow: column;
+    width: 60%;
+    padding-top: 50px
 }
 
 .section {
-    padding-top: 15px;
+    padding-top: 25px;
 }
 
 .question {
