@@ -14,7 +14,8 @@ export class TitleInput {
     }
 
     getCurrentValue() {
-        return this._titleHolder.getCurrentValue();
+        let value = this._titleHolder.getCurrentValue();
+        return value.length === 0 ? "Empty title" : value;
     }
 
     _generateNode() {
