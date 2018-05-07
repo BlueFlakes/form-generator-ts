@@ -33,6 +33,10 @@ export class ArrayList {
 
             hasNext: () => {
                 return index < this.container.length;
+            },
+
+            isLast: () => {
+                return index === this.container.length - 1;
             }
         };
     }
@@ -41,5 +45,13 @@ export class ArrayList {
         this.container.forEach(currentElement => {
             callback(currentElement);
         });
+    }
+
+    clear() {
+        this.container.length = 0;
+    }
+
+    size() {
+        return this.container.length;
     }
 }

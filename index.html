@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <div id="main__container">
-        <button id="add__textInput" type="button" class="btn btn-primary">Add TextInput</button>
-        <button id="add__textArea" type="button" class="btn btn-primary">Add TextArea</button>
-        <button id="add__radioQuestion" type="button" class="btn btn-primary">Add RadioBox</button>
-        <button id="add__checkbox" type="button" class="btn btn-primary">Add CheckBox</button>
-        <button id="add__datetime" type="button" class="btn btn-primary">Add datetime</button>
-        <button id="add__enumeratedList" type="button" class="btn btn-primary">Add enumerated list</button>
-        <button id="add__rangeList" type="button" class="btn btn-primary">Add range list</button>
-        <button id="render__form" type="button" class="btn btn-primary">Re render</button>
-        <button id="delete__form" type="button" class="btn btn-primary">Delete form</button>
-        <button id="show__preview" type="button" class="btn btn-primary">Show Preview</button>
+        <div id="buttons">
+            <button id="add__textInput" type="button" class="btn btn-primary">Add TextInput</button>
+            <button id="add__textArea" type="button" class="btn btn-primary">Add TextArea</button>
+            <button id="add__radioQuestion" type="button" class="btn btn-primary">Add RadioBox</button>
+            <button id="add__checkbox" type="button" class="btn btn-primary">Add CheckBox</button>
+            <button id="add__datetime" type="button" class="btn btn-primary">Add datetime</button>
+            <button id="add__enumeratedList" type="button" class="btn btn-primary">Add enumerated list</button>
+            <button id="add__rangeList" type="button" class="btn btn-primary">Add range list</button>
+            <button id="render__form" type="button" class="btn btn-primary">Re render</button>
+            <button id="delete__form" type="button" class="btn btn-primary">Delete form</button>
+            <button id="show__preview" type="button" class="btn btn-primary">Show Preview</button>
+            <button id="show__questionValue" type="button" class="btn btn-primary">Show</button>
+        </div>
         <div id="survey"></div>
     </div>
     <script type="module" src="src/AppController.js"></script>

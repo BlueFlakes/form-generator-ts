@@ -34,6 +34,8 @@ export class SimpleElement {
         element.type = "text";
         element.value = this.getCurrentValue();
         element.id = this._id;
+        element.classList.add("form-control");
+        element.classList.add("simple-element");
         return element;
     }
 

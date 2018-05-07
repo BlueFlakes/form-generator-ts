@@ -6,26 +6,14 @@ import {
 import {DOM} from "../../shared/Constants.js";
 import {idAdder} from "../../shared/IdGenerator.js";
 import {instanceConstructor} from "../../shared/Common.js";
+import {SimpleElement} from "./SimpleElement.js";
 
 export class RangeList {
     constructor(id) {
         this._id = id;
 
-        let elementGenerator = createSimpleElementGenerator();
-        this._low = elementGenerator.createElement();
-        this._max = elementGenerator.createElement();
-        
-        function createSimpleElementGenerator() {
-            let strategyName = FieldGeneratorStrategyIdentity.simpleStrategy;
-            let fieldGenerator = FieldGeneratorStrategies.createFieldGeneratorByIdentity(strategyName);
-
-            return {
-                createElement: function () {
-                    let newId = idGenerator.nextId();
-                    return fieldGenerator(newId);
-                }
-            };
-        }
+        this._low = SimpleElement.createWithSettledId();
+        this._max = SimpleElement.createWithSettledId();
     }
 
     getId() {

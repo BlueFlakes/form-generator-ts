@@ -5,7 +5,7 @@ import {Form} from "./formGenerator/survey/Form.js";
 import * as FormCreator from "./formGenerator/FormCreators.js";
 import {DOM} from "./shared/Constants.js";
 import {SimpleElement} from "./formGenerator/simpleElements/SimpleElement.js";
-import {createPreview} from "./formPreview/PreviewCreator.js";
+import {previewCreator} from "./formPreview/PreviewCreator.js";
 
 const ApplicationController = (function () {
     "use strict";
@@ -16,9 +16,7 @@ const ApplicationController = (function () {
         (function previewMode() {
             DOM.attach.event.byId("show__preview", DOM.onEvent.click, function (e) {
                 form.clearWindow();
-                createPreview(form);
-
-
+                previewCreator.injectPreviewMode(form);
             });
         }());
         
@@ -87,7 +85,6 @@ const ApplicationController = (function () {
                 btn.setAttribute("className", "btn btn-success");
                 handle(question, [btn]);
             });
-
         }());
     }());
 
