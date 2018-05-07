@@ -5,14 +5,14 @@ export class QuestionView {
         this._questionVM = questionVM;
     }
 
-    injectContainer(question, simpleElementsIterator, additionalContainerAttributes) {
-        let questionID = question.getId();
+    injectContainer(ids, simpleElementsIterator, additionalContainerAttributes) {
+        let questionID = ids.id;
         let container = settleContainer(questionID, additionalContainerAttributes);
 
-        let parentId = question.getParentId();
+        let parentId = ids.parentId;
         DOM.attach.child.byId(parentId, container);
 
-        appendChildNodes();
+        appendChildNodes(questionID);
 
         function settleContainer(id, additionalAttributes) {
             let div = DOM.create.element("div");
@@ -28,12 +28,15 @@ export class QuestionView {
             }
         }
 
-        function appendChildNodes() {
+        function appendChildNodes(questionID) {
             let currentIndex = 0;
 
             while (simpleElementsIterator.hasNext()) {
                 let simpleElement = simpleElementsIterator.next();
-                simpleElement.injectNode(currentIndex++);
+                simpleElement.injectNode({
+                    parentId: questionID,
+                    index: currentIndex++
+                });
             }
         }
     }

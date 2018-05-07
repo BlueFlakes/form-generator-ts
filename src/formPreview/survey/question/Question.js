@@ -2,9 +2,8 @@ import {ArrayList} from "../../../shared/ArrayList.js";
 import {ValueHolder} from "../../observerPattern/ValueHolder.js";
 
 export class Question {
-    constructor(contextData, id) {
+    constructor(id) {
         this._id = id;
-        this._parentId = contextData.parentId;
 
         this._simpleElements = new ArrayList();
         this._valueHolder = new ValueHolder();
@@ -16,10 +15,6 @@ export class Question {
 
     getId() {
         return this._id;
-    }
-
-    getParentId() {
-        return this._parentId;
     }
 
     getCurrentValue() {
