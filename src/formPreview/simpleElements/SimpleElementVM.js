@@ -1,10 +1,10 @@
 import {SimpleElementView} from "./SimpleElementView.js";
-import {ObserversEden} from "../../observerPattern/ObserversEden.js";
+import {ObserversEden} from "../observerPattern/ObserversEden.js";
 
 export class SimpleElementVM {
-    constructor(simpleElementModel) {
+    constructor(simpleElementModel, viewCreator) {
         this._simpleElementModel = simpleElementModel;
-        this._simpleElementView = new SimpleElementView(this);
+        this._simpleElementView = viewCreator(this);
         this._observersEden = new ObserversEden();
     }
 

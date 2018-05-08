@@ -10,6 +10,7 @@ export class SectionView {
         injectAdditionalContainerAttributes(div, containerAttributes);
         let sectionId = contextData.id;
         div.id = sectionId;
+        div.classList.add("prev-section");
 
         let outerContainerId = contextData.parentId;
         DOM.attach.child.byId(outerContainerId, div);
