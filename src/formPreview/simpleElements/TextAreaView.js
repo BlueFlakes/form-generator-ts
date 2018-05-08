@@ -1,4 +1,4 @@
-import {DOM} from "../../../shared/Constants.js";
+import {DOM} from "../../shared/Constants.js";
 
 export class TextAreaView {
     constructor(simpleElementVM) {
@@ -9,7 +9,7 @@ export class TextAreaView {
 
         let input = DOM.create.element("textarea");
         input.id = thisId;
-
+        input.classList.add("form-control");
         DOM.attach.child.byId(outerContainerId, input);
 
         this._injectEventListener(thisId);

@@ -9,7 +9,7 @@ export class SimpleElementView {
         let input = DOM.create.element("input");
         input.id = elementId;
         input.placeholder = content;
-
+        input.classList.add("form-control");
         DOM.attach.child.byId(outerContainerId, input);
         this._injectEventListener(elementId);
     }

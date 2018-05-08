@@ -20,7 +20,7 @@ import {SimpleElement} from "./simpleElements/SimpleElement.js";
 import {SimpleElementVM} from "./simpleElements/SimpleElementVM.js";
 import {SimpleElementView} from "./simpleElements/SimpleElementView.js";
 import {DateView} from "./simpleElements/DateView.js";
-import {TextAreaView} from "./simpleElements/textAreaBox/TextAreaView.js";
+import {TextAreaView} from "./simpleElements/TextAreaView.js";
 import {RangeListView} from "./simpleElements/RangeListView.js";
 import {EnumeratedList} from "./simpleElements/enumeratedRangeList/EnumeratedList.js";
 import {EnumeratedListVM} from "./simpleElements/enumeratedRangeList/EnumeratedListVM.js";
