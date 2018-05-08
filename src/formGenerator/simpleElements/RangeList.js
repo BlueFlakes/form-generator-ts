@@ -59,8 +59,8 @@ export class RangeList {
 
     getCurrentValue() {
         return {
-            min: this._low,
-            max: this._max
+            min: this._low.getCurrentValue(),
+            max: this._max.getCurrentValue()
         };
     }
 
