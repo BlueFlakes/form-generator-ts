@@ -27,6 +27,7 @@ body {
 }
 
 #survey {
+    margin-top: 50px;
     flex-flow: column;
     width: 60%;
 }
@@ -37,4 +38,9 @@ body {
 
 .question {
     padding-top: 10px;
+}
+
+.prev-section + .prev-section {
+    margin: 25px 0;
+    border-top: 1px solid white;
 }

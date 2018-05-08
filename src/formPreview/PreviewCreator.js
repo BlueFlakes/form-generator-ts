@@ -17,7 +17,14 @@ import {FieldGeneratorStrategyIdentity} from "../formGenerator/simpleElements/Fi
 import {TitleInputVM} from "./simpleElements/titleInput/TitleInputVM.js";
 import {PreviewSectionsContainer} from "./survey/section/PreviewSectionsContainer.js";
 import {SimpleElement} from "./simpleElements/SimpleElement.js";
-import {SimpleElementVM} from "./simpleElements/simpleVM/SimpleElementVM.js";
+import {SimpleElementVM} from "./simpleElements/SimpleElementVM.js";
+import {SimpleElementView} from "./simpleElements/SimpleElementView.js";
+import {DateView} from "./simpleElements/DateView.js";
+import {TextAreaView} from "./simpleElements/textAreaBox/TextAreaView.js";
+import {RangeListView} from "./simpleElements/RangeListView.js";
+import {EnumeratedList} from "./simpleElements/enumeratedRangeList/EnumeratedList.js";
+import {EnumeratedListVM} from "./simpleElements/enumeratedRangeList/EnumeratedListVM.js";
+
 
 export const previewCreator = (function () {
     let previewSectionsContainer = new PreviewSectionsContainer("survey");
@@ -79,11 +86,12 @@ export const previewCreator = (function () {
     }
 }());
 
+// noinspection OverlyComplexFunctionJS
 function getSimpleElementsResolver(type) {
     switch (type) {
         case FieldGeneratorStrategyIdentity.radioBoxStrategy:
             return function radioElementsConverter(question) {
-                let convertedElements = multipleFieldsConverter(question, function (simpleElementModel) {
+                let convertedElements = fieldsConverter(question, function (simpleElementModel) {
                     return new RadioBoxVM(simpleElementModel);
                 });
 
@@ -95,7 +103,7 @@ function getSimpleElementsResolver(type) {
 
         case FieldGeneratorStrategyIdentity.checkBoxStrategy:
             return function radioElementsConverter(question) {
-                let convertedElements = multipleFieldsConverter(question, function (simpleElementModel) {
+                let convertedElements = fieldsConverter(question, function (simpleElementModel) {
                     return new CheckBoxVM(simpleElementModel);
                 });
 
@@ -107,8 +115,11 @@ function getSimpleElementsResolver(type) {
 
         case FieldGeneratorStrategyIdentity.simpleStrategy:
             return function (question) {
-                let convertedElements = multipleFieldsConverter(question, function (simpleElementModel) {
-                    return new SimpleElementVM(simpleElementModel);
+                let convertedElements = fieldsConverter(question, function (simpleElementModel) {
+                    let viewCreator = function (self) {
+                        return new SimpleElementView(self);
+                    };
+                    return new SimpleElementVM(simpleElementModel, viewCreator);
                 });
 
                 return {
@@ -117,11 +128,72 @@ function getSimpleElementsResolver(type) {
                 };
             };
 
+        case FieldGeneratorStrategyIdentity.datetimeBoxStrategy:
+            return function (question) {
+                let convertedElements = fieldsConverter(question, function (simpleElementModel) {
+                    let viewCreator = function (self) {
+                        return new DateView(self);
+                    };
+                    return new SimpleElementVM(simpleElementModel, viewCreator);
+                });
+
+                return {
+                    convertedSimpleElements: convertedElements,
+                    updateStrategyIdentity: UpdateStrategiesEnum.simpleUpdate
+                };
+            };
+            
+        case FieldGeneratorStrategyIdentity.textAreaStrategy:
+            return function (question) {
+                let convertedElements = fieldsConverter(question, function (simpleElementModel) {
+                    let viewCreator = function (self) {
+                        return new TextAreaView(self);
+                    };
+                    return new SimpleElementVM(simpleElementModel, viewCreator);
+                });
+
+                return {
+                    convertedSimpleElements: convertedElements,
+                    updateStrategyIdentity: UpdateStrategiesEnum.simpleUpdate
+                };
+            };
+
+        case FieldGeneratorStrategyIdentity.rangeListStrategy:
+            return function (question) {
+                let convertedElements = fieldsConverter(question, function (simpleElementModel) {
+                    let viewCreator = function (self) {
+                        return new RangeListView(self);
+                    };
+                    return new SimpleElementVM(simpleElementModel, viewCreator);
+                });
+
+                return {
+                    convertedSimpleElements: convertedElements,
+                    updateStrategyIdentity: UpdateStrategiesEnum.simpleUpdate
+                };
+            };
+
+        case FieldGeneratorStrategyIdentity.enumeratedListStrategy:
+            return function (question) {
+                let simpleElements = enumeratedElementsConverter(question);
+                let id = question.getId();
+
+                let enumeratedList = new EnumeratedList(id, simpleElements);
+                let enumeratedVM = new EnumeratedListVM(enumeratedList);
+                let container = new ArrayList();
+                container.add(enumeratedVM);
+
+                return {
+                    convertedSimpleElements: container,
+                    updateStrategyIdentity: UpdateStrategiesEnum.simpleUpdate
+                };
+            };
+
         default:
             throw "Invalid converter strategy identity";
     }
 
-    function multipleFieldsConverter(question, constructor) {
+    function fieldsConverter(question, constructor) {
         let simpleElements = question.getSimpleElements();
         let temp = new ArrayList();
 
@@ -138,4 +210,18 @@ function getSimpleElementsResolver(type) {
         return temp;
     }
 
+    function enumeratedElementsConverter(question) {
+        let simpleElements = question.getSimpleElements();
+        let temp = new ArrayList();
+
+        simpleElements.forEach(el => {
+            let content = el.getCurrentValue();
+            let id = el.getId();
+
+            let model = new SimpleElement(id, content);
+            temp.add(model);
+        });
+
+        return temp;
+    }
 }
